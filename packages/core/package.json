@@ -1,0 +1,24 @@
+{
+  "name": "@repo/core",
+  "type": "module",
+  "private": "true",
+  "scripts": {
+    "try": "bun run src/try.ts",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint --cache"
+  },
+  "exports": {
+    "./*": {
+      "import": "./dist/*.mjs",
+      "types": "./dist/*.d.mts"
+    }
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/bun": "catalog:",
+    "eslint": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  }
+}
