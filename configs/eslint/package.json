@@ -9,16 +9,16 @@
   },
   "exports": {
     "./bun": {
-      "import": "./src/bun.js",
-      "types": "./src/bun.d.ts"
+      "import": "./src/runtime/bun.js",
+      "types": "./src/runtime/bun.d.ts"
     },
     "./browser": {
-      "import": "./src/browser.js",
-      "types": "./src/browser.d.ts"
+      "import": "./src/runtime/browser.js",
+      "types": "./src/runtime/browser.d.ts"
     },
     "./isomorphic": {
-      "import": "./src/isomorphic.js",
-      "types": "./src/isomorphic.d.ts"
+      "import": "./src/runtime/isomorphic.js",
+      "types": "./src/runtime/isomorphic.d.ts"
     }
   },
   "devDependencies": {
