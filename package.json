@@ -2,6 +2,10 @@
   "name": "ultra-bun",
   "type": "module",
   "private": true,
+  "scripts": {
+    "format": "prettier . --write --cache",
+    "format:check": "prettier . --check --cache"
+  },
   "workspaces": {
     "packages": [
       "apps/*",
@@ -13,6 +17,9 @@
       "@types/bun": "^1.3.11",
       "typescript": "^6.0.2"
     }
+  },
+  "devDependencies": {
+    "prettier": "3.8.2"
   },
   "packageManager": "bun@1.3.11"
 }
