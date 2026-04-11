@@ -5,6 +5,8 @@ import {
   type FallBackError,
 } from "@repo/core/error/create-fallback";
 
+import { FileAlreadyExistsError } from "@/errors/file-already-exists";
+
 export async function writeFile({
   overwrite = true,
   content,
@@ -13,12 +15,25 @@ export async function writeFile({
   overwrite?: boolean;
   path: string | URL;
   content: string;
-}): Promise<Result<number, FallBackError>> {
+}): Promise<Result<number, FileAlreadyExistsError | FallBackError>> {
   try {
     if (overwrite === false) {
       const fileReference = Bun.file(path);
+
       if (await fileReference.exists()) {
-        throw new Error("File already exists");
+        const error = new FileAlreadyExistsError(
+          "Cannot write to a file that already exists when overwrite is set to false.",
+          {
+            context: {
+              operation: "writeFile",
+              path,
+            },
+          }
+        );
+        return {
+          success: false,
+          error,
+        };
       }
     }
 
