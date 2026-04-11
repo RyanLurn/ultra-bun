@@ -8,6 +8,24 @@ import {
 import { FileAlreadyExistsError } from "@/errors/file-already-exists";
 
 export async function writeFile({
+  overwrite,
+  content,
+  path,
+}: {
+  path: string | URL;
+  overwrite?: true;
+  content: string;
+}): Promise<Result<number, FallBackError>>;
+export async function writeFile({
+  overwrite,
+  content,
+  path,
+}: {
+  path: string | URL;
+  overwrite: false;
+  content: string;
+}): Promise<Result<number, FileAlreadyExistsError | FallBackError>>;
+export async function writeFile({
   overwrite = true,
   content,
   path,
