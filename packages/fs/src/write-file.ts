@@ -1,4 +1,3 @@
-import type { PathLike, BlobPart, BunFile, Archive, S3File } from "bun";
 import type { Result } from "@repo/core/types/result";
 
 import {
@@ -7,20 +6,23 @@ import {
 } from "@repo/core/error/create-fallback";
 
 export async function writeFile({
-  destination,
-  input,
+  overwrite = true,
+  content,
+  path,
 }: {
-  input:
-    | NodeJS.TypedArray<ArrayBufferLike>
-    | ArrayBufferLike
-    | BlobPart[]
-    | Archive
-    | string
-    | Blob;
-  destination: PathLike | BunFile | S3File;
+  overwrite?: boolean;
+  path: string | URL;
+  content: string;
 }): Promise<Result<number, FallBackError>> {
   try {
-    const bytes = await Bun.write(destination, input);
+    if (overwrite === false) {
+      const fileReference = Bun.file(path);
+      if (await fileReference.exists()) {
+        throw new Error("File already exists");
+      }
+    }
+
+    const bytes = await Bun.write(path, content);
     return {
       success: true,
       data: bytes,
@@ -28,8 +30,8 @@ export async function writeFile({
   } catch (error) {
     const context = {
       arguments: {
-        destination,
-        input,
+        content,
+        path,
       },
       operation: "writeFile",
     };
