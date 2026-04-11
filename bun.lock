@@ -38,6 +38,21 @@
         "typescript": "catalog:",
       },
     },
+    "packages/fs": {
+      "name": "@repo/fs",
+      "dependencies": {
+        "@repo/core": "workspace:*",
+        "zod": "catalog:",
+      },
+      "devDependencies": {
+        "@repo/eslint-config": "workspace:*",
+        "@repo/typescript-config": "workspace:*",
+        "@types/bun": "catalog:",
+        "eslint": "catalog:",
+        "tsdown": "catalog:",
+        "typescript": "catalog:",
+      },
+    },
     "scripts/create": {
       "name": "@repo/create",
       "dependencies": {
@@ -145,6 +160,8 @@
     "@repo/create": ["@repo/create@workspace:scripts/create"],
 
     "@repo/eslint-config": ["@repo/eslint-config@workspace:configs/eslint"],
+
+    "@repo/fs": ["@repo/fs@workspace:packages/fs"],
 
     "@repo/typescript-config": ["@repo/typescript-config@workspace:configs/typescript"],
 
