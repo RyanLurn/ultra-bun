@@ -1,0 +1,36 @@
+{
+  "name": "@repo/eslint-config",
+  "type": "module",
+  "private": "true",
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "lint": "eslint --cache"
+  },
+  "exports": {
+    "./bun": {
+      "import": "./src/bun.js",
+      "types": "./src/bun.d.ts"
+    },
+    "./browser": {
+      "import": "./src/browser.js",
+      "types": "./src/browser.d.ts"
+    },
+    "./isomorphic": {
+      "import": "./src/isomorphic.js",
+      "types": "./src/isomorphic.d.ts"
+    }
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tanstack/eslint-plugin-router": "^1.161.6",
+    "@types/bun": "catalog:",
+    "@repo/typescript-config": "workspace:*",
+    "eslint": "catalog:",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-perfectionist": "^5.8.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^17.4.0",
+    "typescript": "catalog:",
+    "typescript-eslint": "^8.58.1"
+  }
+}
