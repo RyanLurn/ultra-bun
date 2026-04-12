@@ -45,7 +45,7 @@ export async function readFileContentAsJson({
     }
 
     const error = new FileDoesNotExistError(
-      `Failed to read file content as json because the file doesn't exist`,
+      "Failed to read file content as json because the file doesn't exist",
       {
         context: {
           operation: readFileContentAsJson.name,
@@ -95,7 +95,7 @@ export async function readFileContentAsText({
     }
 
     const error = new FileDoesNotExistError(
-      `Failed to read file content as text because the file doesn't exist`,
+      "Failed to read file content as text because the file doesn't exist",
       {
         context: {
           operation: readFileContentAsText.name,
