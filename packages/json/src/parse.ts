@@ -12,8 +12,8 @@ export function jsonParse({
   try {
     const value = JSON.parse(text, reviver) as unknown;
     return { success: true, data: value };
-  } catch (error) {
-    const invalidJsonError = new InvalidJsonError({
+  } catch (cause) {
+    const error = new InvalidJsonError({
       context: {
         arguments: {
           reviver,
@@ -21,11 +21,11 @@ export function jsonParse({
         },
         operation: jsonParse.name,
       },
-      cause: error as SyntaxError,
+      cause: cause as SyntaxError,
     });
     return {
-      error: invalidJsonError,
       success: false,
+      error,
     };
   }
 }
