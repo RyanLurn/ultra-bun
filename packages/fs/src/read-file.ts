@@ -31,7 +31,10 @@ export async function readFileContentAsJson({
 
       const error = new InvalidJsonError({
         context: {
-          ...jsonParseResult.error.context,
+          arguments: {
+            ...jsonParseResult.error.context.arguments,
+            path,
+          },
           operation: readFileContentAsJson.name,
         },
         message:
