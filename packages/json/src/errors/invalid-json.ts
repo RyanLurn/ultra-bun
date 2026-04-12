@@ -1,8 +1,10 @@
 import { BaseError } from "@repo/core/error/classes/base";
 
+import type { JsonParseReviver } from "@/types";
+
 export type InvalidJsonErrorContext = {
   arguments: {
-    reviver?: (this: unknown, key: string, value: unknown) => unknown;
+    reviver?: JsonParseReviver;
     text: string;
     // eslint-disable-next-line perfectionist/sort-object-types
     [key: string]: unknown;

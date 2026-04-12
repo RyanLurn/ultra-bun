@@ -1,12 +1,14 @@
 import type { Result } from "@repo/core/types/result";
 
+import type { JsonParseReviver } from "@/types";
+
 import { InvalidJsonError } from "@/errors/invalid-json";
 
 export function jsonParse({
   reviver,
   text,
 }: {
-  reviver?: (this: unknown, key: string, value: unknown) => unknown;
+  reviver?: JsonParseReviver;
   text: string;
 }): Result<unknown, InvalidJsonError> {
   try {
