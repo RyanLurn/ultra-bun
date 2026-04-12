@@ -19,7 +19,7 @@ export function jsonParse({
           reviver,
           text,
         },
-        operation: "jsonParse",
+        operation: jsonParse.name,
       },
       cause: error as SyntaxError,
     });
