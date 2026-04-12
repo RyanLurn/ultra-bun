@@ -26,7 +26,7 @@ export async function readFileContentAsText({
     }
 
     const error = new FileDoesNotExistError(
-      `Couldn't read text content of the requested file because the file doesn't exist`,
+      `Failed to read file content as text because the file doesn't exist`,
       {
         context: {
           operation: readFileContentAsText.name,
@@ -47,7 +47,8 @@ export async function readFileContentAsText({
     };
 
     const fallbackError = createFallbackError({
-      message: "Failed to read file content due to unknown exception",
+      message:
+        "Failed to read file content as text due to an unknown exception",
       cause: error,
       context,
     });
