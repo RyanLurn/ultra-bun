@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@repo/core": "workspace:*",
+    "@repo/json": "workspace:*",
     "zod": "catalog:"
   },
   "devDependencies": {

@@ -1,9 +1,11 @@
+import type { InvalidJsonError } from "@repo/json/errors/invalid-json";
 import type { Result } from "@repo/core/types/result";
 
 import {
   createFallbackError,
   type FallBackError,
 } from "@repo/core/error/create-fallback";
+import { jsonParse } from "@repo/json/parse";
 
 import type { FilePath } from "@/types";
 
@@ -13,18 +15,25 @@ export async function readFileContent({
   format = "text",
   path,
 }: {
-  format?: "text";
+  format?: "text" | "json";
   path: FilePath;
-}): Promise<Result<string, FileDoesNotExistError | FallBackError>> {
+}): Promise<
+  Result<unknown, FileDoesNotExistError | InvalidJsonError | FallBackError>
+> {
   try {
     const file = Bun.file(path);
 
     if (await file.exists()) {
-      const content = await file[format]();
-      return {
-        success: true,
-        data: content,
-      };
+      const content = await file.text();
+
+      if (format === "text") {
+        return {
+          success: true,
+          data: content,
+        };
+      }
+
+      return jsonParse({ text: content });
     }
 
     const error = new FileDoesNotExistError(
