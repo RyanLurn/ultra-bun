@@ -39,6 +39,22 @@
         "typescript": "catalog:",
       },
     },
+    "packages/fetch": {
+      "name": "@repo/fetch",
+      "dependencies": {
+        "@repo/core": "workspace:*",
+        "@repo/json": "workspace:*",
+        "zod": "catalog:",
+      },
+      "devDependencies": {
+        "@repo/eslint-config": "workspace:*",
+        "@repo/typescript-config": "workspace:*",
+        "@types/bun": "catalog:",
+        "eslint": "catalog:",
+        "tsdown": "catalog:",
+        "typescript": "catalog:",
+      },
+    },
     "packages/fs": {
       "name": "@repo/fs",
       "dependencies": {
@@ -160,6 +176,8 @@
     "@repo/core": ["@repo/core@workspace:packages/core"],
 
     "@repo/eslint-config": ["@repo/eslint-config@workspace:configs/eslint"],
+
+    "@repo/fetch": ["@repo/fetch@workspace:packages/fetch"],
 
     "@repo/fs": ["@repo/fs@workspace:packages/fs"],
 
