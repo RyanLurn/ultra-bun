@@ -7,6 +7,6 @@ export function jsonStringify({ value }: { value: unknown }) {
     return value.toString();
   }
 
-  const jsonString = JSON.stringify(value);
+  const jsonString = JSON.stringify(value, null, 2);
   return jsonString;
 }
