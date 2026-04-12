@@ -15,7 +15,7 @@ export async function readFileContentAsText({
   path,
 }: {
   path: FilePath;
-}): Promise<Result<unknown, FileDoesNotExistError | FallBackError>> {
+}): Promise<Result<string, FileDoesNotExistError | FallBackError>> {
   try {
     const file = Bun.file(path);
 
