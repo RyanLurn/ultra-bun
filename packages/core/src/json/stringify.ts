@@ -1,4 +1,11 @@
-export function jsonStringify({ value }: { value: unknown }) {
+export function jsonStringify({
+  value,
+  // eslint-disable-next-line perfectionist/sort-objects
+  space = 2,
+}: {
+  value: unknown;
+  space?: number;
+}) {
   if (value === undefined) {
     return "undefined";
   }
@@ -7,6 +14,6 @@ export function jsonStringify({ value }: { value: unknown }) {
     return value.toString();
   }
 
-  const jsonString = JSON.stringify(value, null, 2);
+  const jsonString = JSON.stringify(value, null, space);
   return jsonString;
 }
