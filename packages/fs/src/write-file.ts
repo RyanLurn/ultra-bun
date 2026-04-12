@@ -60,7 +60,7 @@ export async function writeFile({
       success: true,
       data: bytes,
     };
-  } catch (error) {
+  } catch (cause) {
     const context = {
       arguments: {
         content,
@@ -69,14 +69,14 @@ export async function writeFile({
       operation: writeFile.name,
     };
 
-    const fallbackError = createFallbackError({
+    const error = createFallbackError({
       message: "Failed to write file to destination",
-      cause: error,
       context,
+      cause,
     });
     return {
-      error: fallbackError,
       success: false,
+      error,
     };
   }
 }

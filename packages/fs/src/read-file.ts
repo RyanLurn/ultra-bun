@@ -40,7 +40,7 @@ export async function readFileContentAsText({
       success: false,
       error,
     };
-  } catch (error) {
+  } catch (cause) {
     const context = {
       operation: readFileContentAsText.name,
       arguments: {
@@ -48,15 +48,15 @@ export async function readFileContentAsText({
       },
     };
 
-    const fallbackError = createFallbackError({
+    const error = createFallbackError({
       message:
         "Failed to read file content as text due to an unknown exception",
-      cause: error,
       context,
+      cause,
     });
     return {
-      error: fallbackError,
       success: false,
+      error,
     };
   }
 }
@@ -89,7 +89,7 @@ export async function readFileContentAsJson({
       success: false,
       error,
     };
-  } catch (error) {
+  } catch (cause) {
     const context = {
       operation: readFileContentAsJson.name,
       arguments: {
@@ -97,15 +97,15 @@ export async function readFileContentAsJson({
       },
     };
 
-    const fallbackError = createFallbackError({
+    const error = createFallbackError({
       message:
         "Failed to read file content as json due to an unknown exception",
-      cause: error,
       context,
+      cause,
     });
     return {
-      error: fallbackError,
       success: false,
+      error,
     };
   }
 }
