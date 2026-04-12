@@ -4,6 +4,8 @@ export type InvalidJsonErrorContext = {
   arguments: {
     reviver?: (this: unknown, key: string, value: unknown) => unknown;
     text: string;
+    // eslint-disable-next-line perfectionist/sort-object-types
+    [key: string]: unknown;
   };
   operation: string;
 };
