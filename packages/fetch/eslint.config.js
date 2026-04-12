@@ -1,5 +1,5 @@
 // @ts-check
 
-import { bunConfig } from "@repo/eslint-config/bun";
+import { isomorphicConfig } from "@repo/eslint-config/isomorphic";
 
-export default bunConfig;
+export default isomorphicConfig;
