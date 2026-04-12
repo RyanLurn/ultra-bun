@@ -14,12 +14,18 @@ export class InvalidJsonError extends BaseError {
   declare cause: SyntaxError;
 
   constructor({
+    message,
     context,
     cause,
   }: {
     context: InvalidJsonErrorContext;
     cause: SyntaxError;
+    message?: string;
   }) {
-    super(cause.message, { code: "INVALID_JSON_ERROR", context, cause });
+    super(message ?? cause.message, {
+      code: "INVALID_JSON_ERROR",
+      context,
+      cause,
+    });
   }
 }
