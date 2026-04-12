@@ -7,13 +7,15 @@ import {
 
 import type { InvalidJsonErrorContext } from "@/errors/invalid-json";
 
+import { InvalidJsonError } from "@/errors/invalid-json";
+
 export function jsonParse({
   reviver,
   text,
 }: {
   reviver?: (this: unknown, key: string, value: unknown) => unknown;
   text: string;
-}): Result<unknown, FallBackError> {
+}): Result<unknown, InvalidJsonError | FallBackError> {
   try {
     const value = JSON.parse(text, reviver) as unknown;
     return { success: true, data: value };
@@ -25,6 +27,14 @@ export function jsonParse({
       },
       operation: "jsonParse",
     };
+
+    if (error instanceof SyntaxError) {
+      const invalidJsonError = new InvalidJsonError({ cause: error, context });
+      return {
+        error: invalidJsonError,
+        success: false,
+      };
+    }
 
     const fallbackError = createFallbackError({ cause: error, context });
     return {
