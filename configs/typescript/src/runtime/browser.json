@@ -2,7 +2,6 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "../base.json",
   "compilerOptions": {
-    "lib": ["ESNext", "DOM"],
-    "types": ["react", "react-dom", "vite/client"]
+    "lib": ["ESNext", "DOM"]
   }
 }
