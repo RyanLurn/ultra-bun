@@ -43,7 +43,7 @@ export async function writeFile({
           "Cannot write to a file that already exists when overwrite is set to false.",
           {
             context: {
-              operation: "writeFile",
+              operation: writeFile.name,
               path,
             },
           }
@@ -66,7 +66,7 @@ export async function writeFile({
         content,
         path,
       },
-      operation: "writeFile",
+      operation: writeFile.name,
     };
 
     const fallbackError = createFallbackError({
