@@ -1,3 +1,7 @@
+import type { Result } from "@/types/result";
+
+import { SerializationError } from "@/error/classes/serialization";
+
 export function jsonStringify({
   value,
   // eslint-disable-next-line perfectionist/sort-objects
@@ -5,15 +9,42 @@ export function jsonStringify({
 }: {
   value: unknown;
   space?: number;
-}) {
-  if (value === undefined) {
-    return "undefined";
-  }
+}): Result<string, SerializationError> {
+  try {
+    if (value === undefined) {
+      return {
+        data: "undefined",
+        success: true,
+      };
+    }
 
-  if (typeof value === "function") {
-    return value.toString();
-  }
+    if (typeof value === "function") {
+      return {
+        data: value.toString(),
+        success: true,
+      };
+    }
 
-  const jsonString = JSON.stringify(value, null, space);
-  return jsonString;
+    const jsonString = JSON.stringify(value, null, space);
+    return {
+      data: jsonString,
+      success: true,
+    };
+  } catch (cause) {
+    const error = new SerializationError({
+      context: {
+        arguments: {
+          value,
+          space,
+        },
+        operation: jsonStringify.name,
+      },
+      message: `Cannot stringify ${typeof value === "bigint" ? "BigInt" : "cyclic object"} value`,
+      cause: cause as TypeError,
+    });
+    return {
+      success: false,
+      error,
+    };
+  }
 }
