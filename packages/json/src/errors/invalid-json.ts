@@ -1,6 +1,6 @@
 import { BaseError } from "@repo/core/error/classes/base";
 
-type InvalidJsonErrorContext = {
+export type InvalidJsonErrorContext = {
   arguments: {
     reviver?: (this: unknown, key: string, value: unknown) => unknown;
     text: string;
