@@ -4,6 +4,6 @@ export default defineConfig({
   dts: {
     sourcemap: true,
   },
-  entry: "src/**/*.ts",
+  entry: ["src/**/*.ts", "!src/try.ts"],
   unbundle: true,
 });
