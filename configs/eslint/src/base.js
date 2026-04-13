@@ -39,6 +39,7 @@ export const baseConfig = defineConfig([
       "perfectionist/sort-object-types": "off",
       "perfectionist/sort-objects": "off",
       "perfectionist/sort-classes": "off",
+      "perfectionist/sort-modules": "off",
       curly: "error",
     },
   },
