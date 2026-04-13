@@ -88,4 +88,26 @@ export default ${runtime}Config;
   if (writeEslintConfigResult.success === false) {
     return writeEslintConfigResult;
   }
+
+  // Generate tsdown.config.ts file
+  const tsdownConfigContent = `
+import { defineConfig } from "tsdown";
+
+export default defineConfig({
+  dts: {
+    sourcemap: true,
+  },
+  entry: ["src/**/*.ts", "!src/try.ts"],
+  unbundle: true,
+});
+`;
+
+  const writeTsdownConfigResult = await writeTextToDisk({
+    text: tsdownConfigContent.trim(),
+    path: join(packageDir, "tsdown.config.ts"),
+  });
+
+  if (writeTsdownConfigResult.success === false) {
+    return writeTsdownConfigResult;
+  }
 }
