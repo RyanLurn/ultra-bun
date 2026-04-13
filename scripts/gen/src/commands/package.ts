@@ -75,9 +75,9 @@ export async function generatePackage({ name, runtime }: PackageCommandArgs) {
   const eslintConfigContent = `
 // @ts-check
 
-import { bunConfig } from "@repo/eslint-config/bun";
+import { ${runtime}Config } from "@repo/eslint-config/${runtime}";
 
-export default bunConfig;
+export default ${runtime}Config;
 `;
 
   const writeEslintConfigResult = await writeTextToDisk({
