@@ -9,7 +9,7 @@ import { $ } from "bun";
 
 import { ROOT_WORKSPACE_DIR } from "@/constants";
 
-export async function runFormat(): Promise<
+export async function runFormatScript(): Promise<
   Result<string, FallBackError | ShellError>
 > {
   const command = "bun run format";
@@ -22,7 +22,7 @@ export async function runFormat(): Promise<
     };
   } catch (cause) {
     const context = {
-      operation: runFormat.name,
+      operation: runFormatScript.name,
       command,
       chainedMethods: ["cwd", "text"],
       cwd: ROOT_WORKSPACE_DIR,
