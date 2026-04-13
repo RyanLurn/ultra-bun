@@ -8,6 +8,7 @@ export type Runtime = z.infer<typeof RuntimeSchema>;
 
 export const PackageCommandArgsSchema = z.object({
   command: CommandSchema.extract(["package"]),
+  name: z.string().min(1),
   runtime: RuntimeSchema.default("bun"),
 });
 export type PackageCommandArgs = z.infer<typeof PackageCommandArgsSchema>;

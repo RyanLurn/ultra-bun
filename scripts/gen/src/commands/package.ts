@@ -1,0 +1,32 @@
+import type { PackageCommandArgs } from "@/commands/schema";
+
+export async function generatePackage({ name }: PackageCommandArgs) {
+  const packageJsonContent = `
+{
+  "name": "${name}",
+  "type": "module",
+  "private": "true",
+  "scripts": {
+    "build": "tsdown",
+    "try": "bun run src/try.ts",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint --cache"
+  },
+  "exports": {
+    "./*": {
+      "import": "./dist/*.mjs",
+      "types": "./dist/*.d.mts"
+    }
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/bun": "catalog:",
+    "eslint": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  }
+}`;
+
+  await Bun.write(".", packageJsonContent);
+}
