@@ -143,7 +143,7 @@ export default defineConfig({
   }
   console.log("Code files formatted.");
 
-  // Operation complete successfully
+  // Operation completed successfully
   return {
     success: true,
     data: undefined,
