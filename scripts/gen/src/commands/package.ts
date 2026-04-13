@@ -66,4 +66,22 @@ export async function generatePackage({ name, runtime }: PackageCommandArgs) {
   if (writeTsconfigResult.success === false) {
     return writeTsconfigResult;
   }
+
+  // Generate eslint.config.js file
+  const eslintConfigContent = `
+// @ts-check
+
+import { bunConfig } from "@repo/eslint-config/bun";
+
+export default bunConfig;
+`;
+
+  const writeEslintConfigResult = await writeTextToDisk({
+    text: eslintConfigContent.trim(),
+    path: join(packageDir, "eslint.config.js"),
+  });
+
+  if (writeEslintConfigResult.success === false) {
+    return writeEslintConfigResult;
+  }
 }
