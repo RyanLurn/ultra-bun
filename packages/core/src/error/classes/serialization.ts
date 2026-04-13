@@ -22,7 +22,8 @@ export class SerializationError extends BaseError {
     context: SerializationContext;
     cause: TypeError;
   }) {
-    super(message ?? cause.message, {
+    super({
+      message: message ?? cause.message,
       code: "SERIALIZATION_ERROR",
       context,
       cause,

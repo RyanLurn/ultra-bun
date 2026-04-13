@@ -19,6 +19,6 @@ export class ValidationError extends BaseError {
     context: ValidationContext;
     cause?: unknown;
   }) {
-    super(message, { code: "VALIDATION_ERROR", context, cause });
+    super({ message, code: "VALIDATION_ERROR", context, cause });
   }
 }

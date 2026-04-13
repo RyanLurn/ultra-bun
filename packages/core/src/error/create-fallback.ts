@@ -13,10 +13,11 @@ export function createFallbackError({
   cause: unknown;
 }): FallBackError {
   if (cause instanceof Error) {
-    return new UnexpectedError(message ?? cause.message, { context, cause });
+    return new UnexpectedError({ message, context, cause });
   }
 
-  return new UnknownError(message ?? "An unknown non-Error value was thrown", {
+  return new UnknownError({
+    message: message ?? "An unknown non-Error value was thrown",
     context,
     cause,
   });
