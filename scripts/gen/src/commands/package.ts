@@ -14,7 +14,8 @@ export async function generatePackage({
   name,
   runtime,
 }: PackageCommandArgs): Promise<Result<undefined, FallBackError | ShellError>> {
-  const packageDir = join(ROOT_WORKSPACE_DIR, "package", name);
+  const packageDir = join(ROOT_WORKSPACE_DIR, "packages", name);
+  console.log(`Generating @repo/${name} package at ${packageDir}.`);
 
   // Generate package.json file
   const packageJsonContent = `
@@ -35,7 +36,7 @@ export async function generatePackage({
     }
   },
   "dependencies": {
-    "@repo/core": "workspace:*",
+    "@repo/core": "workspace:*"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
@@ -56,6 +57,7 @@ export async function generatePackage({
   if (writePackageJsonResult.success === false) {
     return writePackageJsonResult;
   }
+  console.log("Generated package.json file successfully.");
 
   // Generate tsconfig.json file
   const tsconfigContent = `
@@ -78,6 +80,7 @@ export async function generatePackage({
   if (writeTsconfigResult.success === false) {
     return writeTsconfigResult;
   }
+  console.log("Generated tsconfig.json file successfully.");
 
   // Generate eslint.config.js file
   const eslintConfigContent = `
@@ -96,6 +99,7 @@ export default ${runtime}Config;
   if (writeEslintConfigResult.success === false) {
     return writeEslintConfigResult;
   }
+  console.log("Generated eslint.config.js file successfully.");
 
   // Generate tsdown.config.ts file
   const tsdownConfigContent = `
@@ -118,13 +122,16 @@ export default defineConfig({
   if (writeTsdownConfigResult.success === false) {
     return writeTsdownConfigResult;
   }
+  console.log("Generated tsdown.config.ts file successfully.");
 
   // Run `bun install`
+  console.log("Running `bun install`...");
   const runBunInstallResult = await runBunInstall();
 
   if (runBunInstallResult.success === false) {
     return runBunInstallResult;
   }
+  console.log(runBunInstallResult.data);
 
   // Operation complete successfully
   return {
