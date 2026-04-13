@@ -5,6 +5,7 @@
     "": {
       "name": "ultra-bun",
       "devDependencies": {
+        "@repo/gen": "workspace:*",
         "prettier": "3.8.2",
         "turbo": "^2.9.6",
       },
@@ -41,6 +42,9 @@
     },
     "scripts/gen": {
       "name": "@repo/gen",
+      "bin": {
+        "gen": "src/index.ts",
+      },
       "dependencies": {
         "@repo/core": "workspace:*",
         "zod": "catalog:",

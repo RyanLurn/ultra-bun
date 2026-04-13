@@ -2,6 +2,9 @@
   "name": "@repo/gen",
   "type": "module",
   "private": "true",
+  "bin": {
+    "gen": "src/index.ts"
+  },
   "scripts": {
     "try": "bun run src/try.ts",
     "check-types": "tsc --noEmit",
