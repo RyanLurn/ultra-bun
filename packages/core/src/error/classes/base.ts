@@ -1,17 +1,17 @@
 export class BaseError extends Error {
-  context?: Record<string, unknown>;
   code: string;
+  context?: Record<string, unknown>;
 
   constructor(
     message: string,
     {
+      code,
       context,
       cause,
-      code,
     }: {
+      code: string;
       context?: Record<string, unknown>;
       cause?: unknown;
-      code: string;
     }
   ) {
     super(message, { cause });
