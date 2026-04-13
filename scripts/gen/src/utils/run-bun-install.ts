@@ -10,13 +10,13 @@ import { $ } from "bun";
 import { ROOT_WORKSPACE_DIR } from "@/constants";
 
 export async function runBunInstall(): Promise<
-  Result<undefined, FallBackError | ShellError>
+  Result<string, FallBackError | ShellError>
 > {
   try {
-    await $`bun install`.cwd(ROOT_WORKSPACE_DIR);
+    const output = await $`bun install`.cwd(ROOT_WORKSPACE_DIR).text();
     return {
       success: true,
-      data: undefined,
+      data: output,
     };
   } catch (cause) {
     const context = {
