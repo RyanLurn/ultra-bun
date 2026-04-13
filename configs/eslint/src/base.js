@@ -14,6 +14,7 @@ export const baseConfig = defineConfig([
   ]),
   js.configs.recommended,
   ts.configs.recommendedTypeChecked,
+  perfectionist.configs["recommended-line-length"],
   {
     rules: {
       "@typescript-eslint/only-throw-error": [
@@ -35,8 +36,8 @@ export const baseConfig = defineConfig([
       ],
       "@typescript-eslint/no-import-type-side-effects": "error",
       "@typescript-eslint/consistent-type-imports": "error",
+      "perfectionist/sort-objects": "off",
       curly: "error",
     },
   },
-  perfectionist.configs["recommended-line-length"],
 ]);

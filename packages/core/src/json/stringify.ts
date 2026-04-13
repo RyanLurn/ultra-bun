@@ -4,7 +4,6 @@ import { SerializationError } from "@/error/classes/serialization";
 
 export function jsonStringify({
   value,
-  // eslint-disable-next-line perfectionist/sort-objects
   space = 2,
 }: {
   value: unknown;
