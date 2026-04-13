@@ -10,21 +10,21 @@ export function jsonStringify({
   value: unknown;
   space?: number;
 }): Result<string, SerializationError> {
+  if (value === undefined) {
+    return {
+      data: "undefined",
+      success: true,
+    };
+  }
+
+  if (typeof value === "function") {
+    return {
+      data: value.toString(),
+      success: true,
+    };
+  }
+
   try {
-    if (value === undefined) {
-      return {
-        data: "undefined",
-        success: true,
-      };
-    }
-
-    if (typeof value === "function") {
-      return {
-        data: value.toString(),
-        success: true,
-      };
-    }
-
     const jsonString = JSON.stringify(value, null, space);
     return {
       data: jsonString,
