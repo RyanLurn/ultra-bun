@@ -5,7 +5,7 @@ import type { PackageCommandArgs } from "@/commands/schema";
 
 import { ROOT_WORKSPACE_DIR } from "@/constants";
 
-export async function generatePackage({ name }: PackageCommandArgs) {
+export async function generatePackage({ name, runtime }: PackageCommandArgs) {
   const packageDir = join(ROOT_WORKSPACE_DIR, "package", name);
 
   const packageJsonContent = `
@@ -36,13 +36,34 @@ export async function generatePackage({ name }: PackageCommandArgs) {
     "tsdown": "catalog:",
     "typescript": "catalog:"
   }
-}`;
+}
+`;
 
   const writePackageJsonResult = await writeTextToDisk({
-    text: packageJsonContent,
+    text: packageJsonContent.trim(),
     path: join(packageDir, "package.json"),
   });
   if (writePackageJsonResult.success === false) {
     return writePackageJsonResult;
+  }
+
+  const tsconfigContent = `
+{
+  "extends": "@repo/typescript-config/src/runtime/${runtime}.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*", "eslint.config.js", "tsdown.config.ts"]
+}
+`;
+
+  const writeTsconfigResult = await writeTextToDisk({
+    text: tsconfigContent.trim(),
+    path: join(packageDir, "tsconfig.json"),
+  });
+  if (writeTsconfigResult.success === false) {
+    return writeTsconfigResult;
   }
 }
