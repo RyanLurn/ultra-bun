@@ -3,6 +3,7 @@ import { join } from "node:path";
 
 import type { PackageCommandArgs } from "@/commands/schema";
 
+import { runBunInstall } from "@/utils/run-bun-install";
 import { ROOT_WORKSPACE_DIR } from "@/constants";
 
 export async function generatePackage({ name, runtime }: PackageCommandArgs) {
@@ -109,5 +110,12 @@ export default defineConfig({
 
   if (writeTsdownConfigResult.success === false) {
     return writeTsdownConfigResult;
+  }
+
+  // Run `bun install`
+  const runBunInstallResult = await runBunInstall();
+
+  if (runBunInstallResult.success === false) {
+    return runBunInstallResult;
   }
 }
