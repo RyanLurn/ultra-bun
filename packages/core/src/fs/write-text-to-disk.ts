@@ -1,4 +1,3 @@
-import type { AbsolutePath } from "@/types/path";
 import type { Result } from "@/types/result";
 
 import {
@@ -11,7 +10,7 @@ export async function writeTextToDisk({
   path,
 }: {
   text: string;
-  path: AbsolutePath;
+  path: string;
 }): Promise<Result<number, FallBackError>> {
   try {
     const bytesWritten = await Bun.write(path, text);
