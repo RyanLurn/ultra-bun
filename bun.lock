@@ -39,53 +39,6 @@
         "typescript": "catalog:",
       },
     },
-    "packages/fetch": {
-      "name": "@repo/fetch",
-      "dependencies": {
-        "@repo/core": "workspace:*",
-        "@repo/json": "workspace:*",
-        "zod": "catalog:",
-      },
-      "devDependencies": {
-        "@repo/eslint-config": "workspace:*",
-        "@repo/typescript-config": "workspace:*",
-        "@types/bun": "catalog:",
-        "eslint": "catalog:",
-        "tsdown": "catalog:",
-        "typescript": "catalog:",
-      },
-    },
-    "packages/fs": {
-      "name": "@repo/fs",
-      "dependencies": {
-        "@repo/core": "workspace:*",
-        "@repo/json": "workspace:*",
-        "zod": "catalog:",
-      },
-      "devDependencies": {
-        "@repo/eslint-config": "workspace:*",
-        "@repo/typescript-config": "workspace:*",
-        "@types/bun": "catalog:",
-        "eslint": "catalog:",
-        "tsdown": "catalog:",
-        "typescript": "catalog:",
-      },
-    },
-    "packages/json": {
-      "name": "@repo/json",
-      "dependencies": {
-        "@repo/core": "workspace:*",
-        "zod": "catalog:",
-      },
-      "devDependencies": {
-        "@repo/eslint-config": "workspace:*",
-        "@repo/typescript-config": "workspace:*",
-        "@types/bun": "catalog:",
-        "eslint": "catalog:",
-        "tsdown": "catalog:",
-        "typescript": "catalog:",
-      },
-    },
   },
   "catalog": {
     "@types/bun": "^1.3.12",
@@ -176,12 +129,6 @@
     "@repo/core": ["@repo/core@workspace:packages/core"],
 
     "@repo/eslint-config": ["@repo/eslint-config@workspace:configs/eslint"],
-
-    "@repo/fetch": ["@repo/fetch@workspace:packages/fetch"],
-
-    "@repo/fs": ["@repo/fs@workspace:packages/fs"],
-
-    "@repo/json": ["@repo/json@workspace:packages/json"],
 
     "@repo/typescript-config": ["@repo/typescript-config@workspace:configs/typescript"],
 
