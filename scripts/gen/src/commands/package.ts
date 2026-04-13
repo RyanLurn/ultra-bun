@@ -1,3 +1,7 @@
+import type { FallBackError } from "@repo/core/error/create-fallback";
+import type { ShellError } from "@repo/core/error/classes/shell";
+import type { Result } from "@repo/core/types/result";
+
 import { writeTextToDisk } from "@repo/core/fs/write-text-to-disk";
 import { join } from "node:path";
 
@@ -6,7 +10,10 @@ import type { PackageCommandArgs } from "@/commands/schema";
 import { runBunInstall } from "@/utils/run-bun-install";
 import { ROOT_WORKSPACE_DIR } from "@/constants";
 
-export async function generatePackage({ name, runtime }: PackageCommandArgs) {
+export async function generatePackage({
+  name,
+  runtime,
+}: PackageCommandArgs): Promise<Result<undefined, FallBackError | ShellError>> {
   const packageDir = join(ROOT_WORKSPACE_DIR, "package", name);
 
   // Generate package.json file
@@ -118,4 +125,10 @@ export default defineConfig({
   if (runBunInstallResult.success === false) {
     return runBunInstallResult;
   }
+
+  // Operation complete successfully
+  return {
+    success: true,
+    data: undefined,
+  };
 }
