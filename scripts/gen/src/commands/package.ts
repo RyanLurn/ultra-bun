@@ -7,6 +7,7 @@ import { join } from "node:path";
 
 import type { PackageCommandArgs } from "@/commands/schema";
 
+import { runFormatScript } from "@/utils/run-format-script";
 import { runBunInstall } from "@/utils/run-bun-install";
 import { ROOT_WORKSPACE_DIR } from "@/constants";
 
@@ -132,6 +133,15 @@ export default defineConfig({
     return runBunInstallResult;
   }
   console.log(runBunInstallResult.data);
+
+  // Format code
+  console.log("Formatting code...");
+  const runFormatScriptResult = await runFormatScript();
+
+  if (runFormatScriptResult.success === false) {
+    return runFormatScriptResult;
+  }
+  console.log("Code files formatted.");
 
   // Operation complete successfully
   return {

@@ -12,10 +12,8 @@ import { ROOT_WORKSPACE_DIR } from "@/constants";
 export async function runFormatScript(): Promise<
   Result<string, FallBackError | ShellError>
 > {
-  const command = "bun run format";
-
   try {
-    const output = await $`${command}`.cwd(ROOT_WORKSPACE_DIR).text();
+    const output = await $`bun run format`.cwd(ROOT_WORKSPACE_DIR).text();
     return {
       success: true,
       data: output,
@@ -23,7 +21,7 @@ export async function runFormatScript(): Promise<
   } catch (cause) {
     const context = {
       operation: runFormatScript.name,
-      command,
+      command: "bun run format",
       chainedMethods: ["cwd", "text"],
       cwd: ROOT_WORKSPACE_DIR,
     };

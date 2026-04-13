@@ -12,10 +12,8 @@ import { ROOT_WORKSPACE_DIR } from "@/constants";
 export async function runBunInstall(): Promise<
   Result<string, FallBackError | ShellError>
 > {
-  const command = "bun install";
-
   try {
-    const output = await $`${command}`.cwd(ROOT_WORKSPACE_DIR).text();
+    const output = await $`bun install`.cwd(ROOT_WORKSPACE_DIR).text();
     return {
       success: true,
       data: output,
@@ -23,7 +21,7 @@ export async function runBunInstall(): Promise<
   } catch (cause) {
     const context = {
       operation: runBunInstall.name,
-      command,
+      command: "bun install",
       chainedMethods: ["cwd", "text"],
       cwd: ROOT_WORKSPACE_DIR,
     };
