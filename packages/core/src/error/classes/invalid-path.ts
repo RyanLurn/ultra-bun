@@ -13,14 +13,16 @@ export class InvalidPathError extends BaseError {
   constructor({
     message,
     context,
+    cause,
   }: {
     message?: string;
     context: InvalidPathContext;
+    cause?: unknown;
   }) {
     const errorMessage =
       message ??
       `File path cannot be ${typeof context.input === "string" ? "an empty string" : typeof context.input}`;
 
-    super(errorMessage, { code: "INVALID_PATH_ERROR", context });
+    super(errorMessage, { code: "INVALID_PATH_ERROR", context, cause });
   }
 }
