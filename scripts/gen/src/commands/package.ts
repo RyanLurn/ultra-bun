@@ -8,6 +8,7 @@ import { ROOT_WORKSPACE_DIR } from "@/constants";
 export async function generatePackage({ name, runtime }: PackageCommandArgs) {
   const packageDir = join(ROOT_WORKSPACE_DIR, "package", name);
 
+  // Generate package.json file
   const packageJsonContent = `
 {
   "name": "@repo/${name}",
@@ -43,10 +44,12 @@ export async function generatePackage({ name, runtime }: PackageCommandArgs) {
     text: packageJsonContent.trim(),
     path: join(packageDir, "package.json"),
   });
+
   if (writePackageJsonResult.success === false) {
     return writePackageJsonResult;
   }
 
+  // Generate tsconfig.json file
   const tsconfigContent = `
 {
   "extends": "@repo/typescript-config/src/runtime/${runtime}.json",
@@ -63,6 +66,7 @@ export async function generatePackage({ name, runtime }: PackageCommandArgs) {
     text: tsconfigContent.trim(),
     path: join(packageDir, "tsconfig.json"),
   });
+
   if (writeTsconfigResult.success === false) {
     return writeTsconfigResult;
   }
