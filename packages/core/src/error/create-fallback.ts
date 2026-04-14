@@ -1,4 +1,7 @@
-import { UnexpectedError } from "@/error/classes/unexpected";
+import {
+  type ExceptionContext,
+  UnexpectedError,
+} from "@/error/classes/unexpected";
 import { UnknownError } from "@/error/classes/unknown";
 
 export type FallBackError = UnexpectedError | UnknownError;
@@ -8,8 +11,8 @@ export function createFallbackError({
   context,
   cause,
 }: {
-  context?: Record<string, unknown>;
   message?: string;
+  context: ExceptionContext;
   cause: unknown;
 }): FallBackError {
   if (cause instanceof Error) {
@@ -17,7 +20,7 @@ export function createFallbackError({
   }
 
   return new UnknownError({
-    message: message ?? "An unknown non-Error value was thrown",
+    message,
     context,
     cause,
   });
