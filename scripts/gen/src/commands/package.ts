@@ -110,7 +110,7 @@ export default defineConfig({
   dts: {
     sourcemap: true,
   },
-  entry: ["src/**/*.ts", "!src/try.ts"],
+  entry: ["src/**/*.ts", ${runtime !== "bun" ? `"src/**/*.tsx", ` : ""}"!src/try.ts"],
   unbundle: true,
 });
 `;
