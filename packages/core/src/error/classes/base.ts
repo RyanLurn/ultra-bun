@@ -8,8 +8,8 @@ export class BaseError<
   TCause = unknown,
 > extends Error {
   code: TCode;
-  context?: TContext;
-  declare cause?: TCause;
+  context: TContext;
+  declare cause: TCause;
 
   constructor({
     name,
@@ -21,8 +21,8 @@ export class BaseError<
     name: string;
     message: string;
     code: TCode;
-    context?: TContext;
-    cause?: TCause;
+    context: TContext;
+    cause: TCause;
   }) {
     super(message, { cause });
     this.name = name;
