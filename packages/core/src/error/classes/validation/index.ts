@@ -6,19 +6,23 @@ type ValidationContext = {
   [key: string]: unknown;
 };
 
-export class ValidationError extends BaseError {
-  declare code: "VALIDATION_ERROR";
+export class ValidationError<
+  TCode extends string = "VALIDATION_ERROR",
+> extends BaseError {
+  declare code: TCode;
   declare context: ValidationContext;
 
   constructor({
     message,
+    code,
     context,
     cause,
   }: {
     message: string;
+    code: TCode;
     context: ValidationContext;
     cause?: unknown;
   }) {
-    super({ message, code: "VALIDATION_ERROR", context, cause });
+    super({ message, code, context, cause });
   }
 }
