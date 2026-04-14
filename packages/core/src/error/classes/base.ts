@@ -1,8 +1,10 @@
-type BaseContext = Record<string, unknown>;
+import type { JsonSerializableValue } from "@/types/json-serializable-value";
+
+type BaseContext = Record<string, JsonSerializableValue>;
 
 export class BaseError<
   TCode extends string,
-  TContext extends BaseContext = never,
+  TContext extends BaseContext = BaseContext,
   TCause = unknown,
 > extends Error {
   code: TCode;
