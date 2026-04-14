@@ -1,6 +1,4 @@
-import type { JsonSerializableValue } from "@/types/json-serializable-value";
-
-type BaseContext = Record<string, JsonSerializableValue>;
+export type BaseContext = Record<string, unknown>;
 
 export class BaseError<
   TCode extends string,

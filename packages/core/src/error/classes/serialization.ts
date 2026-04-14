@@ -1,28 +1,21 @@
-import { BaseError } from "@/error/classes/base";
+import { type BaseContext, BaseError } from "@/error/classes/base";
 
-type SerializationContext = {
-  operation: string;
-  arguments: {
-    [key: string]: unknown;
-    value: unknown;
-  };
-};
-
-export class SerializationError extends BaseError {
-  declare code: "SERIALIZATION_ERROR";
-  declare context: SerializationContext;
-  declare cause: TypeError;
-
+export class SerializationError extends BaseError<
+  "SERIALIZATION_ERROR",
+  BaseContext,
+  TypeError
+> {
   constructor({
     message,
     context,
     cause,
   }: {
     message?: string;
-    context: SerializationContext;
+    context: BaseContext;
     cause: TypeError;
   }) {
     super({
+      name: "SerializationError",
       message: message ?? cause.message,
       code: "SERIALIZATION_ERROR",
       context,
