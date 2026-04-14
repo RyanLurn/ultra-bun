@@ -1,8 +1,4 @@
-export type JsonParseReviver = (
-  this: unknown,
-  key: string,
-  value: unknown
-) => unknown;
+import type { JsonParseReviver } from "@/error/classes/validation/invalid-json";
 
 export function jsonParse({
   text,
