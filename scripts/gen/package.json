@@ -11,6 +11,7 @@
     "lint": "eslint --cache"
   },
   "dependencies": {
+    "@clack/prompts": "catalog:",
     "@repo/core": "workspace:*",
     "zod": "catalog:"
   },
