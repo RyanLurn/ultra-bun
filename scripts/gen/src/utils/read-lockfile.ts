@@ -7,13 +7,13 @@ import { ValidationError } from "@repo/core/error/classes/validation";
 import { readJsonFile } from "@repo/core/fs/read-json-file";
 import { join } from "node:path";
 
-import { BunLockfileSchema, type BunLockfile } from "@/schemas/bun-lockfile";
+import { type BunLockfile, LockFileSchema } from "@/schemas/lock-file";
 import { ROOT_WORKSPACE_DIR } from "@/constants";
 
 export async function readLockfile(): Promise<
   Result<
     BunLockfile,
-    | ValidationError<typeof BunLockfileSchema>
+    | ValidationError<typeof LockFileSchema>
     | NonExistentPathError
     | InvalidJsonError
     | FallBackError
@@ -27,7 +27,7 @@ export async function readLockfile(): Promise<
     return readLockfileResult;
   }
 
-  const validateLockfileResult = BunLockfileSchema.safeParse(
+  const validateLockfileResult = LockFileSchema.safeParse(
     readLockfileResult.data
   );
 
@@ -36,7 +36,7 @@ export async function readLockfile(): Promise<
       success: false,
       error: new ValidationError({
         message: `Failed to validate lockfile content at path: ${lockfilePath}`,
-        schema: BunLockfileSchema,
+        schema: LockFileSchema,
         cause: validateLockfileResult.error,
       }),
     };

@@ -8,7 +8,7 @@ const WorkspaceSchema = z.looseObject({
   devDependencies: DependencyListSchema.optional(),
 });
 
-export const BunLockfileSchema = z.looseObject({
+export const LockFileSchema = z.looseObject({
   workspaces: z
     .object({
       "": WorkspaceSchema,
@@ -27,4 +27,4 @@ export const BunLockfileSchema = z.looseObject({
     .catchall(WorkspaceSchema),
   catalog: DependencyListSchema.optional(),
 });
-export type BunLockfile = z.infer<typeof BunLockfileSchema>;
+export type BunLockfile = z.infer<typeof LockFileSchema>;
