@@ -2,7 +2,7 @@ import z from "zod";
 
 import { DependencyListSchema } from "@/schemas/dependency";
 
-const WorkspaceEntrySchema = z.looseObject({
+const WorkspaceSchema = z.looseObject({
   name: z.string(),
   dependencies: DependencyListSchema.optional(),
   devDependencies: DependencyListSchema.optional(),
@@ -11,9 +11,20 @@ const WorkspaceEntrySchema = z.looseObject({
 export const BunLockfileSchema = z.looseObject({
   workspaces: z
     .object({
-      "": WorkspaceEntrySchema,
+      "": WorkspaceSchema,
+      "configs/eslint": z.looseObject({
+        ...WorkspaceSchema.shape,
+        name: z.literal("@repo/eslint-config"),
+      }),
+      "configs/typescript": z.looseObject({
+        name: z.literal("@repo/typescript-config"),
+      }),
+      "packages/core": z.looseObject({
+        ...WorkspaceSchema.shape,
+        name: z.literal("@repo/core"),
+      }),
     })
-    .catchall(WorkspaceEntrySchema),
+    .catchall(WorkspaceSchema),
   catalog: DependencyListSchema.optional(),
 });
 export type BunLockfile = z.infer<typeof BunLockfileSchema>;
