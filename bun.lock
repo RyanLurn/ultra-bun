@@ -31,6 +31,9 @@
     },
     "packages/core": {
       "name": "@repo/core",
+      "dependencies": {
+        "zod": "catalog:",
+      },
       "devDependencies": {
         "@repo/eslint-config": "workspace:*",
         "@repo/typescript-config": "workspace:*",
