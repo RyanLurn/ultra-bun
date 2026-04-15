@@ -13,6 +13,7 @@
   "dependencies": {
     "@clack/prompts": "catalog:",
     "@repo/core": "workspace:*",
+    "jsonc-parser": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
