@@ -1,10 +1,8 @@
-import type { BaseError } from "@/error/classes/base";
-
-export type Result<TData, TError extends BaseError> =
+export type Result<TData, TError extends Error> =
   | Failure<TError>
   | Success<TData>;
 
-export type Failure<TError extends BaseError> = {
+export type Failure<TError extends Error> = {
   success: false;
   error: TError;
 };
