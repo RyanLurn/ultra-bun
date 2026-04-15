@@ -9,10 +9,10 @@ export class NonExistentPathError extends BaseError<
   NonExistentPathContext,
   null
 > {
-  constructor({ path }: { path: string }) {
+  constructor({ message, path }: { message?: string; path: string }) {
     super({
       name: "NonExistentPathError",
-      message: `Path does not exist: ${path}`,
+      message: message ?? `Path does not exist: ${path}`,
       code: "NON_EXISTENT_PATH_ERROR",
       context: {
         path,
