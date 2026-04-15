@@ -13,6 +13,22 @@ if (readLockfileResult.success === false) {
 const lockfile = readLockfileResult.data;
 const rootWorkspaceName = lockfile.workspaces[""].name;
 
+// Get package's name
+const name = await text({
+  message: "Enter the package's name:",
+  validate: (value) => {
+    if (typeof value === "string" && value.length > 0) {
+      return undefined;
+    }
+    return "Package's name cannot be empty";
+  },
+});
+
+if (isCancel(name)) {
+  console.log("Operation cancelled");
+  process.exit(0);
+}
+
 // Get package's scope
 let scope: string | null = DEFAULT_SCOPE;
 
@@ -22,17 +38,17 @@ const scopeOption = await select({
     {
       value: "DEFAULT",
       label: "Use default",
-      hint: `@${DEFAULT_SCOPE}/package-name`,
+      hint: `@${DEFAULT_SCOPE}/${name}`,
     },
     {
       value: "ROOT",
       label: "Use root workspace's name",
-      hint: `@${rootWorkspaceName}/package-name`,
+      hint: `@${rootWorkspaceName}/${name}`,
     },
     {
       value: "NONE",
-      label: "Don't add scope to package's name",
-      hint: "package-name",
+      label: "Don't add scope",
+      hint: name,
     },
     {
       value: "CUSTOM",
@@ -82,22 +98,6 @@ switch (scopeOption) {
 
     scope = customScope;
   }
-}
-
-// Get package's name
-const name = await text({
-  message: "What is the package's name?",
-  validate: (value) => {
-    if (typeof value === "string" && value.length > 0) {
-      return undefined;
-    }
-    return "Package's name cannot be empty";
-  },
-});
-
-if (isCancel(name)) {
-  console.log("Operation cancelled");
-  process.exit(0);
 }
 
 // Get package type
