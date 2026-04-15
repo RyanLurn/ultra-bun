@@ -28,7 +28,7 @@ export async function readTextFromFile({
     return {
       success: false,
       error: createFallbackError({
-        message: `Failed to read file at "${path}"`,
+        message: `Failed to read file at path: ${path}`,
         context: {},
         cause,
       }),

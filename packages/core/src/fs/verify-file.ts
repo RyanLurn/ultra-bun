@@ -1,6 +1,10 @@
 import type { ExistentFile, ExistentPath } from "@/types/fs";
 import type { Result } from "@/types/result";
 
+import {
+  createFallbackError,
+  type FallBackError,
+} from "@/error/create-fallback";
 import { NonExistentPathError } from "@/error/classes/non-existent-path";
 
 export type VerifiedFileData = {
@@ -12,21 +16,32 @@ export async function verifyFile({
   path,
 }: {
   path: string;
-}): Promise<Result<VerifiedFileData, NonExistentPathError>> {
-  const file = Bun.file(path);
+}): Promise<Result<VerifiedFileData, NonExistentPathError | FallBackError>> {
+  try {
+    const file = Bun.file(path);
 
-  if (await file.exists()) {
+    if (await file.exists()) {
+      return {
+        success: true,
+        data: {
+          file: file as ExistentFile,
+          path: path as ExistentPath,
+        },
+      };
+    }
+
     return {
-      success: true,
-      data: {
-        file: file as ExistentFile,
-        path: path as ExistentPath,
-      },
+      success: false,
+      error: new NonExistentPathError({ path }),
+    };
+  } catch (cause) {
+    return {
+      success: false,
+      error: createFallbackError({
+        message: `Failed to verify file at path: ${path}`,
+        context: {},
+        cause,
+      }),
     };
   }
-
-  return {
-    success: false,
-    error: new NonExistentPathError({ path }),
-  };
 }
