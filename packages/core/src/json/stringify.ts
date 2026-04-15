@@ -1,33 +1,44 @@
+import type { JsonParseReviver } from "@/json/parse";
 import type { Result } from "@/types/result";
 
 import { SerializationError } from "@/error/classes/serialization";
 
 export function jsonStringify({
   value,
+  replacer = null,
   space = 2,
 }: {
   value: unknown;
-  space?: number;
+  replacer?: (number | string)[] | JsonParseReviver | null;
+  space?: number | string;
 }): Result<string, SerializationError> {
-  if (value === undefined) {
+  if (typeof value === "undefined") {
     return {
-      data: "undefined",
       success: true,
+      data: "undefined",
     };
   }
 
-  if (typeof value === "function") {
+  if (typeof value === "function" || typeof value === "symbol") {
     return {
-      data: value.toString(),
       success: true,
+      data: value.toString(),
     };
   }
 
   try {
-    const jsonString = JSON.stringify(value, null, space);
+    /**
+     * TypeScript has 2 overloads for JSON.stringify
+     * The type guard exists to make TypeScript happy
+     * There's no runtime difference
+     */
+    const jsonString =
+      typeof replacer === "function"
+        ? JSON.stringify(value, replacer, space)
+        : JSON.stringify(value, replacer, space);
     return {
-      data: jsonString,
       success: true,
+      data: jsonString,
     };
   } catch (cause) {
     return {
