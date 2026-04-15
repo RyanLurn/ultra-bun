@@ -1,3 +1,3 @@
 #!/usr/bin/env bun
 
-console.log("Hello World.");
+console.log("Hello from gen script!");
