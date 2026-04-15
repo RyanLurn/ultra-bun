@@ -1,32 +1,31 @@
-import { prettifyError, type ZodError, type ZodType } from "zod";
+import { prettifyError, type ZodError } from "zod";
 
 import { BaseError } from "@/error/classes/base";
 
-type ValidationContext<TSchema extends ZodType> = {
+type ValidationContext<TSchema extends string> = {
   schema: TSchema;
+  [key: string]: unknown;
 };
 
-export class ValidationError<TSchema extends ZodType> extends BaseError<
+export class ValidationError<TSchema extends string> extends BaseError<
   "VALIDATION_ERROR",
   ValidationContext<TSchema>,
   ZodError
 > {
   constructor({
     message,
-    schema,
+    context,
     cause,
   }: {
     message?: string;
-    schema: TSchema;
+    context: ValidationContext<TSchema>;
     cause: ZodError;
   }) {
     super({
       name: "ValidationError",
       code: "VALIDATION_ERROR",
       message: message ?? prettifyError(cause),
-      context: {
-        schema,
-      },
+      context,
       cause,
     });
   }
