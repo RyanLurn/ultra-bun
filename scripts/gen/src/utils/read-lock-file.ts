@@ -13,7 +13,7 @@ import { ROOT_WORKSPACE_DIR } from "@/constants";
 export async function readLockFile(): Promise<
   Result<
     LockFile,
-    | ValidationError<typeof LockFileSchema>
+    | ValidationError<"LockFileSchema">
     | NonExistentPathError
     | InvalidJsonError
     | FallBackError
@@ -36,7 +36,10 @@ export async function readLockFile(): Promise<
       success: false,
       error: new ValidationError({
         message: `Failed to validate lockfile content at path: ${lockFilePath}`,
-        schema: LockFileSchema,
+        context: {
+          schema: "LockFileSchema",
+          lockFilePath,
+        },
         cause: validateLockFileResult.error,
       }),
     };
