@@ -76,7 +76,7 @@ switch (scopeOption) {
   }
   case "CUSTOM": {
     const customScope = await text({
-      message: `What is the package's scope? (Don't put "@" at the start or "/" at the end)`,
+      message: `Enter the package's scope (Don't put "@" at the start or "/" at the end):`,
       validate: (value) => {
         if (typeof value === "string") {
           if (value.startsWith("@")) {
