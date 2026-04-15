@@ -30,20 +30,12 @@ export function jsonStringify({
       success: true,
     };
   } catch (cause) {
-    const error = new SerializationError({
-      context: {
-        arguments: {
-          value,
-          space,
-        },
-        operation: jsonStringify.name,
-      },
-      message: `Cannot stringify ${typeof value === "bigint" ? "BigInt" : "cyclic object"} value`,
-      cause: cause as TypeError,
-    });
     return {
       success: false,
-      error,
+      error: new SerializationError({
+        message: `Cannot stringify ${typeof value === "bigint" ? "BigInt" : "cyclic object"} value`,
+        cause: cause as TypeError,
+      }),
     };
   }
 }
