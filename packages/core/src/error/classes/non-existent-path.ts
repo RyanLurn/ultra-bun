@@ -1,26 +1,23 @@
 import { BaseError } from "@/error/classes/base";
 
 type NonExistentPathContext = {
-  operation: string;
-  arguments: {
-    path: string;
-  };
+  path: string;
 };
 
-export class NonExistentPathError extends BaseError {
-  declare code: "NON_EXISTENT_PATH_ERROR";
-  declare context: NonExistentPathContext;
-
-  constructor({
-    message,
-    context,
-  }: {
-    message?: string;
-    context: NonExistentPathContext;
-  }) {
-    const errorMessage =
-      message ?? `Path does not exist: ${context.arguments.path}`;
-
-    super({ message: errorMessage, code: "NON_EXISTENT_PATH_ERROR", context });
+export class NonExistentPathError extends BaseError<
+  "NON_EXISTENT_PATH_ERROR",
+  NonExistentPathContext,
+  null
+> {
+  constructor({ path }: { path: string }) {
+    super({
+      name: "NonExistentPathError",
+      message: `Path does not exist: ${path}`,
+      code: "NON_EXISTENT_PATH_ERROR",
+      context: {
+        path,
+      },
+      cause: null,
+    });
   }
 }
