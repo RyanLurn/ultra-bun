@@ -1,4 +1,4 @@
-export type BaseContext = Record<string, unknown>;
+export type BaseContext = Record<string, unknown> | null;
 
 export class BaseError<
   TCode extends string,
