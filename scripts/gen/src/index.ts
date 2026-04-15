@@ -1,15 +1,14 @@
 #!/usr/bin/env bun
 
-const bunLockfile = `
-{
-"": {
-    "name": "ultra-bun",
-    "devDependencies": {
-      "prettier": "3.8.2",
-      "turbo": "^2.9.6",
-    }
-  }
+import { readLockfile } from "@/utils/read-lockfile";
+
+const readLockfileResult = await readLockfile();
+if (readLockfileResult.success === false) {
+  console.error(readLockfileResult.error);
+  process.exit(1);
 }
-`;
-const jsonObject = JSON.parse(bunLockfile) as unknown;
-console.log(jsonObject);
+const lockfile = readLockfileResult.data;
+
+console.log(
+  `${lockfile.workspaces[""].name} is the name of the root workspace.`
+);
