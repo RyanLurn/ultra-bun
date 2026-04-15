@@ -27,4 +27,4 @@ export const LockFileSchema = z.looseObject({
     .catchall(WorkspaceSchema),
   catalog: DependencyListSchema.optional(),
 });
-export type BunLockfile = z.infer<typeof LockFileSchema>;
+export type LockFile = z.infer<typeof LockFileSchema>;

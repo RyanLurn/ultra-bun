@@ -7,12 +7,12 @@ import { ValidationError } from "@repo/core/error/classes/validation";
 import { readJsonFile } from "@repo/core/fs/read-json-file";
 import { join } from "node:path";
 
-import { type BunLockfile, LockFileSchema } from "@/schemas/lock-file";
+import { LockFileSchema, type LockFile } from "@/schemas/lock-file";
 import { ROOT_WORKSPACE_DIR } from "@/constants";
 
 export async function readLockfile(): Promise<
   Result<
-    BunLockfile,
+    LockFile,
     | ValidationError<typeof LockFileSchema>
     | NonExistentPathError
     | InvalidJsonError
