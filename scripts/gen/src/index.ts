@@ -100,4 +100,42 @@ if (isCancel(name)) {
   process.exit(0);
 }
 
-console.log(`The package name is ${scope ? `@${scope}/${name}` : `${name}`}`);
+// Get package type
+const type = await select({
+  message: "Choose a package type:",
+  options: [
+    { label: "Library", hint: `packages/${name}`, value: "LIBRARY" },
+    { label: "Script", hint: `scripts/${name}`, value: "SCRIPT" },
+    { label: "Web app", hint: `apps/${name}`, value: "WEB" },
+    { label: "API server", hint: `apps/${name}`, value: "API" },
+  ],
+});
+
+if (isCancel(type)) {
+  console.log("Operation cancelled");
+  process.exit(0);
+}
+
+let packageDirectory: string;
+switch (type) {
+  case "LIBRARY": {
+    packageDirectory = "packages";
+    break;
+  }
+  case "SCRIPT": {
+    packageDirectory = "scripts";
+    break;
+  }
+  case "API": {
+    packageDirectory = "apps";
+    break;
+  }
+  case "WEB": {
+    packageDirectory = "apps";
+    break;
+  }
+}
+
+console.log(
+  `${scope ? `@${scope}/${name}` : `${name}`} will be created at ${`${packageDirectory}/${name}`}`
+);
