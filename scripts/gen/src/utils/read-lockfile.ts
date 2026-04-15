@@ -7,46 +7,46 @@ import { ValidationError } from "@repo/core/error/classes/validation";
 import { readJsonFile } from "@repo/core/fs/read-json-file";
 import { join } from "node:path";
 
-import { LockFileSchema, type LockFile } from "@/schemas/lock-file";
+import { LockfileSchema, type Lockfile } from "@/schemas/lockfile";
 import { ROOT_WORKSPACE_DIR } from "@/constants";
 
-export async function readLockFile(): Promise<
+export async function readLockfile(): Promise<
   Result<
-    LockFile,
-    | ValidationError<"LockFileSchema">
+    Lockfile,
+    | ValidationError<"LockfileSchema">
     | NonExistentPathError
     | InvalidJsonError
     | FallBackError
   >
 > {
-  const lockFilePath = join(ROOT_WORKSPACE_DIR, "bun.lock");
+  const lockfilePath = join(ROOT_WORKSPACE_DIR, "bun.lock");
 
-  const readJsonFileResult = await readJsonFile({ path: lockFilePath });
+  const readJsonFileResult = await readJsonFile({ path: lockfilePath });
 
   if (readJsonFileResult.success === false) {
     return readJsonFileResult;
   }
 
-  const validateLockFileResult = LockFileSchema.safeParse(
+  const validateLockfileResult = LockfileSchema.safeParse(
     readJsonFileResult.data
   );
 
-  if (validateLockFileResult.success === false) {
+  if (validateLockfileResult.success === false) {
     return {
       success: false,
       error: new ValidationError({
-        message: `Failed to validate lockfile content at path: ${lockFilePath}`,
+        message: `Failed to validate lockfile content at path: ${lockfilePath}`,
         context: {
-          schema: "LockFileSchema",
-          lockFilePath,
+          schema: "LockfileSchema",
+          lockfilePath,
         },
-        cause: validateLockFileResult.error,
+        cause: validateLockfileResult.error,
       }),
     };
   }
 
   return {
     success: true,
-    data: validateLockFileResult.data,
+    data: validateLockfileResult.data,
   };
 }
