@@ -1,10 +1,8 @@
-import type { ExceptionContext } from "@/error/classes/unexpected";
-
-import { BaseError } from "@/error/classes/base";
+import { type BaseContext, BaseError } from "@/error/classes/base";
 
 export class UnknownError extends BaseError<
   "UNKNOWN_ERROR",
-  ExceptionContext,
+  BaseContext,
   unknown
 > {
   constructor({
@@ -13,7 +11,7 @@ export class UnknownError extends BaseError<
     cause,
   }: {
     message?: string;
-    context: ExceptionContext;
+    context: BaseContext;
     cause: unknown;
   }) {
     super({

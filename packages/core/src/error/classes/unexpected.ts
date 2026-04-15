@@ -1,15 +1,8 @@
-import type { JsonSerializableValue } from "@/types/json-serializable-value";
-
-import { BaseError } from "@/error/classes/base";
-
-export type ExceptionContext = {
-  operation: string;
-  arguments: JsonSerializableValue;
-};
+import { type BaseContext, BaseError } from "@/error/classes/base";
 
 export class UnexpectedError extends BaseError<
   "UNEXPECTED_ERROR",
-  ExceptionContext,
+  BaseContext,
   Error
 > {
   constructor({
@@ -18,7 +11,7 @@ export class UnexpectedError extends BaseError<
     cause,
   }: {
     message?: string;
-    context: ExceptionContext;
+    context: BaseContext;
     cause: Error;
   }) {
     super({

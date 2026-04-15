@@ -1,7 +1,6 @@
-import {
-  type ExceptionContext,
-  UnexpectedError,
-} from "@/error/classes/unexpected";
+import type { BaseContext } from "@/error/classes/base";
+
+import { UnexpectedError } from "@/error/classes/unexpected";
 import { UnknownError } from "@/error/classes/unknown";
 
 export type FallBackError = UnexpectedError | UnknownError;
@@ -12,7 +11,7 @@ export function createFallbackError({
   cause,
 }: {
   message?: string;
-  context: ExceptionContext;
+  context: BaseContext;
   cause: unknown;
 }): FallBackError {
   if (cause instanceof Error) {
