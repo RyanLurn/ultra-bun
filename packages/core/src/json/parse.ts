@@ -1,7 +1,12 @@
-import type { JsonParseReviver } from "@/error/classes/validation/invalid-json";
 import type { Result } from "@/types/result";
 
-import { InvalidJsonError } from "@/error/classes/validation/invalid-json";
+import { InvalidJsonError } from "@/error/classes/invalid-json";
+
+export type JsonParseReviver = (
+  this: unknown,
+  key: string,
+  value: unknown
+) => unknown;
 
 export function jsonParse({
   text,
@@ -20,13 +25,6 @@ export function jsonParse({
     return {
       success: false,
       error: new InvalidJsonError({
-        context: {
-          operation: jsonParse.name,
-          arguments: {
-            text,
-            reviver,
-          },
-        },
         cause: cause as SyntaxError,
       }),
     };
