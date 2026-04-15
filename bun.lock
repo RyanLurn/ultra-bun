@@ -5,7 +5,6 @@
     "": {
       "name": "ultra-bun",
       "devDependencies": {
-        "@repo/gen": "workspace:*",
         "prettier": "3.8.2",
         "turbo": "^2.9.6",
       },
