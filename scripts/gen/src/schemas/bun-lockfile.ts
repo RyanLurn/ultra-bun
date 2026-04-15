@@ -13,3 +13,4 @@ export const BunLockfileSchema = z.looseObject({
   ),
   catalog: DependencyListSchema.optional(),
 });
+export type BunLockfile = z.infer<typeof BunLockfileSchema>;
