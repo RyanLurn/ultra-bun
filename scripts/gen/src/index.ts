@@ -2,6 +2,7 @@
 
 import {
   isCancel,
+  taskLog,
   select,
   cancel,
   intro,
@@ -9,6 +10,7 @@ import {
   text,
   log,
 } from "@clack/prompts";
+import { join } from "node:path";
 
 import {
   PACKAGES_DIR_NAME,
@@ -19,7 +21,10 @@ import {
   APPS_DIR_PATH,
   DEFAULT_SCOPE,
 } from "@/constants";
+import { generateEslintconfig } from "@/generate/eslint-config";
+import { generatePackageJson } from "@/generate/package-json";
 import { preflightCheck } from "@/utils/preflight-check";
+import { generateTsconfig } from "@/generate/tsconfig";
 
 intro("Code generation script initiated.");
 
@@ -150,16 +155,16 @@ if (isCancel(type)) {
 let directoryPath: string;
 switch (type) {
   case "LIBRARY": {
-    directoryPath = PACKAGES_DIR_PATH;
+    directoryPath = join(PACKAGES_DIR_PATH, name);
     break;
   }
   case "SCRIPT": {
-    directoryPath = SCRIPTS_DIR_PATH;
+    directoryPath = join(SCRIPTS_DIR_PATH, name);
     break;
   }
   case "API":
   case "WEB": {
-    directoryPath = APPS_DIR_PATH;
+    directoryPath = join(APPS_DIR_PATH, name);
     break;
   }
 }
@@ -180,10 +185,51 @@ if (type === "LIBRARY") {
     cancel("Operation cancelled");
     process.exit(0);
   }
+
+  log.info("Begin generating files...");
+
+  // Generate package.json file
+  const generatePackageJsonResult = await generatePackageJson({
+    scope,
+    name,
+    directoryPath,
+  });
+
+  if (generatePackageJsonResult.success === false) {
+    log.error(generatePackageJsonResult.error.message);
+    cancel("Script failed. Exiting...");
+    process.exit(1);
+  }
+
+  // Generate tsconfig.json file
+  const generateTsconfigResult = await generateTsconfig({
+    runtime,
+    directoryPath,
+  });
+
+  if (generateTsconfigResult.success === false) {
+    log.error(generateTsconfigResult.error.message);
+    cancel("Script failed. Exiting...");
+    process.exit(1);
+  }
+
+  // Generate eslint.config.js file
+  const generateEslintconfigResult = await generateEslintconfig({
+    runtime,
+    directoryPath,
+  });
+
+  if (generateEslintconfigResult.success === false) {
+    log.error(generateEslintconfigResult.error.message);
+    cancel("Script failed. Exiting...");
+    process.exit(1);
+  }
+
+  // Finish code file generation
+  log.success("Files generation complete.");
 } else {
   log.warn("Not yet supported package type");
 }
 
-outro(
-  `${scope ? `@${scope}/${name}` : `${name}`} will be created at ${directoryPath}/${name}`
-);
+outro(`${scope ? `@${scope}/${name}` : `${name}`} created at ${directoryPath}`);
+process.exit(0);

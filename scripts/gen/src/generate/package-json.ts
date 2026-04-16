@@ -22,8 +22,9 @@ function createPackageJson({
   scope,
   name,
 }: Pick<GeneratePackageJsonParams, "scope" | "name">) {
+  const packageName = scope ? `@${scope}/${name}` : name;
   const packageJson: PackageJson = {
-    name: `@${scope}/${name}`,
+    name: `${packageName}`,
     type: "module",
     private: "true",
     scripts: {
