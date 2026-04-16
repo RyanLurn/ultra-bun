@@ -31,3 +31,22 @@ export const PackageJsonSchema = z.looseObject({
   devDependencies: DependencyListSchema.optional(),
 });
 export type PackageJson = z.infer<typeof PackageJsonSchema>;
+
+export const RootPackageJsonSchema = z.looseObject({
+  ...PackageJsonSchema.shape,
+  workspaces: z.object({
+    packages: z.array(z.string()),
+    catalog: z
+      .object({
+        "@clack/prompts": z.string(),
+        "@types/bun": z.string(),
+        eslint: z.string(),
+        tsdown: z.string(),
+        typescript: z.string(),
+        zod: z.string(),
+      })
+      .catchall(z.string()),
+    catalogs: z.record(z.string(), DependencyListSchema).optional(),
+  }),
+});
+export type RootPackageJson = z.infer<typeof RootPackageJsonSchema>;
