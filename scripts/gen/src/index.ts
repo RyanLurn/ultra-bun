@@ -1,6 +1,14 @@
 #!/usr/bin/env bun
 
-import { isCancel, select, cancel, intro, text, log } from "@clack/prompts";
+import {
+  isCancel,
+  select,
+  cancel,
+  intro,
+  outro,
+  text,
+  log,
+} from "@clack/prompts";
 
 import { preflightCheck } from "@/utils/preflight-check";
 import { DEFAULT_SCOPE } from "@/constants";
@@ -69,7 +77,7 @@ const scopeOption = await select({
 });
 
 if (isCancel(scopeOption)) {
-  console.log("Operation cancelled");
+  cancel("Operation cancelled");
   process.exit(0);
 }
 
@@ -103,7 +111,7 @@ switch (scopeOption) {
     });
 
     if (isCancel(customScope)) {
-      console.log("Operation cancelled");
+      cancel("Operation cancelled");
       process.exit(0);
     }
 
@@ -123,7 +131,7 @@ const type = await select({
 });
 
 if (isCancel(type)) {
-  console.log("Operation cancelled");
+  cancel("Operation cancelled");
   process.exit(0);
 }
 
@@ -160,13 +168,13 @@ if (type === "LIBRARY") {
   });
 
   if (isCancel(runtime)) {
-    console.log("Operation cancelled");
+    cancel("Operation cancelled");
     process.exit(0);
   }
 } else {
-  console.warn("Not yet supported package type");
+  log.warn("Not yet supported package type");
 }
 
-console.log(
+outro(
   `${scope ? `@${scope}/${name}` : `${name}`} will be created at ${`${packageDirectory}/${name}`}`
 );
