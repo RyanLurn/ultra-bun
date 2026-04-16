@@ -19,12 +19,12 @@ export default ${runtime}Config;
 
 export async function generateTsconfig({
   runtime,
-  directory,
+  directoryPath,
 }: {
   runtime: Runtime;
-  directory: string;
+  directoryPath: string;
 }) {
-  const path = join(directory, "tsconfig.json");
+  const path = join(directoryPath, "tsconfig.json");
   const content = createEslintConfig({ runtime });
 
   const writeToDiskResult = await writeTextToDisk({

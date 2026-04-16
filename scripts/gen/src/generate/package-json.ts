@@ -15,7 +15,7 @@ import {
 interface GeneratePackageJsonParams {
   scope: string | null;
   name: string;
-  directory: string;
+  directoryPath: string;
 }
 
 function createPackageJson({
@@ -58,9 +58,9 @@ function createPackageJson({
 export async function generatePackageJson({
   scope,
   name,
-  directory,
+  directoryPath,
 }: GeneratePackageJsonParams): Promise<Result<number, FallBackError>> {
-  const path = join(directory, "package.json");
+  const path = join(directoryPath, "package.json");
   const content = createPackageJson({ scope, name });
 
   const writeToDiskResult = await writeTextToDisk({

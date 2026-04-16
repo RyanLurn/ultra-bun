@@ -21,12 +21,12 @@ function createTsconfig({ runtime }: { runtime: Runtime }) {
 
 export async function generateTsconfig({
   runtime,
-  directory,
+  directoryPath,
 }: {
   runtime: Runtime;
-  directory: string;
+  directoryPath: string;
 }) {
-  const path = join(directory, "tsconfig.json");
+  const path = join(directoryPath, "tsconfig.json");
   const content = createTsconfig({ runtime });
 
   const writeToDiskResult = await writeTextToDisk({
