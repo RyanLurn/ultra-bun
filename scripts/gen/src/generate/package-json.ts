@@ -6,6 +6,12 @@ import { join } from "node:path";
 
 import type { PackageJson } from "@/schemas/package-json";
 
+import {
+  TYPESCRIPT_CONFIG_PACKAGE_NAME,
+  ESLINT_CONFIG_PACKAGE_NAME,
+  CORE_PACKAGE_NAME,
+} from "@/constants";
+
 interface GeneratePackageJsonParams {
   scope: string | null;
   name: string;
@@ -33,11 +39,12 @@ function createPackageJson({
       },
     },
     dependencies: {
+      [CORE_PACKAGE_NAME]: "workspace:*",
       zod: "catalog:",
     },
     devDependencies: {
-      "@repo/eslint-config": "workspace:*",
-      "@repo/typescript-config": "workspace:*",
+      [ESLINT_CONFIG_PACKAGE_NAME]: "workspace:*",
+      [TYPESCRIPT_CONFIG_PACKAGE_NAME]: "workspace:*",
       "@types/bun": "catalog:",
       eslint: "catalog:",
       tsdown: "catalog:",
