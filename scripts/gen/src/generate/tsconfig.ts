@@ -1,3 +1,6 @@
+import { writeTextToDisk } from "@repo/core/fs/write-text-to-disk";
+import { join } from "node:path";
+
 import type { Runtime } from "@/types";
 
 import { TYPESCRIPT_CONFIG_PACKAGE_NAME } from "@/constants";
@@ -14,4 +17,22 @@ function createTsconfig({ runtime }: { runtime: Runtime }) {
   };
 
   return JSON.stringify(tsconfig, null, 2);
+}
+
+export async function generateTsconfig({
+  runtime,
+  directory,
+}: {
+  runtime: Runtime;
+  directory: string;
+}) {
+  const path = join(directory, "tsconfig.json");
+  const content = createTsconfig({ runtime });
+
+  const writeToDiskResult = await writeTextToDisk({
+    text: content,
+    path,
+  });
+
+  return writeToDiskResult;
 }
