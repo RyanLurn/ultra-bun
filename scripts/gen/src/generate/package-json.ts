@@ -4,6 +4,8 @@ import type { Result } from "@repo/core/types/result";
 import { writeTextToDisk } from "@repo/core/fs/write-text-to-disk";
 import { join } from "node:path";
 
+import type { PackageJson } from "@/schemas/package-json";
+
 interface GeneratePackageJsonParams {
   scope: string | null;
   name: string;
@@ -14,7 +16,7 @@ function createPackageJson({
   scope,
   name,
 }: Pick<GeneratePackageJsonParams, "scope" | "name">) {
-  const packageJsonObject = {
+  const packageJson: PackageJson = {
     name: `@${scope}/${name}`,
     type: "module",
     private: "true",
@@ -43,7 +45,7 @@ function createPackageJson({
     },
   };
 
-  return JSON.stringify(packageJsonObject, null, 2);
+  return JSON.stringify(packageJson, null, 2);
 }
 
 export async function generatePackageJson({

@@ -2,16 +2,18 @@ import z from "zod";
 
 import { DependencyListSchema } from "@/schemas/dependency";
 
-export const ConditionalExportSchema = z.object({
-  "node-addons": z.string(),
-  node: z.string(),
-  import: z.string(),
-  require: z.string(),
-  "module-sync": z.string(),
-  types: z.string(),
-  browser: z.string(),
-  default: z.string(),
-});
+export const ConditionalExportSchema = z
+  .object({
+    "node-addons": z.string(),
+    node: z.string(),
+    import: z.string(),
+    require: z.string(),
+    "module-sync": z.string(),
+    types: z.string(),
+    browser: z.string(),
+    default: z.string(),
+  })
+  .partial();
 
 export const PackageJsonSchema = z.looseObject({
   name: z.string(),
