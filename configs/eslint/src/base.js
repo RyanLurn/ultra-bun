@@ -37,6 +37,7 @@ export const baseConfig = defineConfig([
       "@typescript-eslint/no-import-type-side-effects": "error",
       "@typescript-eslint/consistent-type-imports": "error",
       "perfectionist/sort-object-types": "off",
+      "perfectionist/sort-interfaces": "off",
       "perfectionist/sort-objects": "off",
       "perfectionist/sort-classes": "off",
       "perfectionist/sort-modules": "off",

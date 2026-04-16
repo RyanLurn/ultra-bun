@@ -1,10 +1,19 @@
+import type { FallBackError } from "@repo/core/error/create-fallback";
+import type { Result } from "@repo/core/types/result";
+
+import { writeTextToDisk } from "@repo/core/fs/write-text-to-disk";
+import { join } from "node:path";
+
+interface GeneratePackageJsonParams {
+  scope: string | null;
+  name: string;
+  directory: string;
+}
+
 function createPackageJson({
   scope,
   name,
-}: {
-  scope: string | null;
-  name: string;
-}) {
+}: Pick<GeneratePackageJsonParams, "scope" | "name">) {
   const packageJsonObject = {
     name: `@${scope}/${name}`,
     type: "module",
@@ -35,4 +44,20 @@ function createPackageJson({
   };
 
   return JSON.stringify(packageJsonObject, null, 2);
+}
+
+export async function generatePackageJson({
+  scope,
+  name,
+  directory,
+}: GeneratePackageJsonParams): Promise<Result<number, FallBackError>> {
+  const path = join(directory, "package.json");
+  const content = createPackageJson({ scope, name });
+
+  const writeToDiskResult = await writeTextToDisk({
+    text: content,
+    path,
+  });
+
+  return writeToDiskResult;
 }
