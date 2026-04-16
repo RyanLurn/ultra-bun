@@ -1,17 +1,28 @@
 #!/usr/bin/env bun
 
-import { isCancel, select, text } from "@clack/prompts";
+import { isCancel, select, cancel, intro, text, log } from "@clack/prompts";
 
-import { readLockfile } from "@/utils/read-lockfile";
+import { preflightCheck } from "@/utils/preflight-check";
 import { DEFAULT_SCOPE } from "@/constants";
 
-const readLockfileResult = await readLockfile();
-if (readLockfileResult.success === false) {
-  console.error(readLockfileResult.error);
+intro("Code generation script initiated.");
+
+// Preflight checks
+log.info("Running preflight checks...");
+const preflightCheckResult = await preflightCheck();
+
+if (preflightCheckResult.success === false) {
+  log.error(preflightCheckResult.error.message);
   process.exit(1);
 }
-const lockfile = readLockfileResult.data;
+
+log.success("Preflight checks completed. No problems found.");
+const { lockfile } = preflightCheckResult.data;
+
 const rootWorkspaceName = lockfile.workspaces[""].name;
+
+// Begin main process
+log.info("Begin code generation process.");
 
 // Get package's name
 const name = await text({
@@ -25,7 +36,7 @@ const name = await text({
 });
 
 if (isCancel(name)) {
-  console.log("Operation cancelled");
+  cancel("Operation cancelled");
   process.exit(0);
 }
 
