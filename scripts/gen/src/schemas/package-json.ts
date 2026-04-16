@@ -1,6 +1,6 @@
 import z from "zod";
 
-import { DependencyListSchema } from "@/schemas/dependency";
+import { DependencyListSchema, CatalogSchema } from "@/schemas/dependency";
 
 export const ConditionalExportSchema = z
   .object({
@@ -38,16 +38,7 @@ export const RootPackageJsonSchema = z.looseObject({
   ...PackageJsonSchema.shape,
   workspaces: z.object({
     packages: z.array(z.string()),
-    catalog: z
-      .object({
-        "@clack/prompts": z.string(),
-        "@types/bun": z.string(),
-        eslint: z.string(),
-        tsdown: z.string(),
-        typescript: z.string(),
-        zod: z.string(),
-      })
-      .catchall(z.string()),
+    catalog: CatalogSchema,
     catalogs: z.record(z.string(), DependencyListSchema).optional(),
   }),
 });

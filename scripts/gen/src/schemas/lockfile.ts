@@ -5,7 +5,7 @@ import {
   ESLINT_CONFIG_PACKAGE_NAME,
   CORE_PACKAGE_NAME,
 } from "@/constants";
-import { DependencyListSchema } from "@/schemas/dependency";
+import { DependencyListSchema, CatalogSchema } from "@/schemas/dependency";
 
 const WorkspaceSchema = z.looseObject({
   name: z.string(),
@@ -30,6 +30,6 @@ export const LockfileSchema = z.looseObject({
       }),
     })
     .catchall(WorkspaceSchema),
-  catalog: DependencyListSchema.optional(),
+  catalog: CatalogSchema,
 });
 export type Lockfile = z.infer<typeof LockfileSchema>;
