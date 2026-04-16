@@ -1,5 +1,11 @@
 import z from "zod";
 
+import {
+  PACKAGES_DIR_NAME,
+  CONFIGS_DIR_NAME,
+  SCRIPTS_DIR_NAME,
+  APPS_DIR_NAME,
+} from "@/constants";
 import { DependencyListSchema, CatalogSchema } from "@/schemas/dependency";
 
 export const ConditionalExportSchema = z
@@ -37,7 +43,12 @@ export type PackageJson = z.infer<typeof PackageJsonSchema>;
 export const RootPackageJsonSchema = z.looseObject({
   ...PackageJsonSchema.shape,
   workspaces: z.object({
-    packages: z.array(z.string()),
+    packages: z.tuple([
+      z.literal(`${APPS_DIR_NAME}/*`),
+      z.literal(`${CONFIGS_DIR_NAME}/*`),
+      z.literal(`${PACKAGES_DIR_NAME}/*`),
+      z.literal(`${SCRIPTS_DIR_NAME}/*`),
+    ]),
     catalog: CatalogSchema,
     catalogs: z.record(z.string(), DependencyListSchema).optional(),
   }),
