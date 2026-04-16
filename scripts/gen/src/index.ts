@@ -136,6 +136,26 @@ switch (type) {
   }
 }
 
+// Library branch
+if (type === "LIBRARY") {
+  // Get the package's runtime
+  const runtime = await select({
+    message: "Choose the package's runtime",
+    options: [
+      { label: "Bun", value: "BUN" },
+      { label: "Browser", value: "BROWSER" },
+      { label: "Both", value: "ISOMORPHIC" },
+    ],
+  });
+
+  if (isCancel(runtime)) {
+    console.log("Operation cancelled");
+    process.exit(0);
+  }
+} else {
+  console.warn("Not yet supported package type");
+}
+
 console.log(
   `${scope ? `@${scope}/${name}` : `${name}`} will be created at ${`${packageDirectory}/${name}`}`
 );
