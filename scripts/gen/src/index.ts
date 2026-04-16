@@ -10,8 +10,16 @@ import {
   log,
 } from "@clack/prompts";
 
+import {
+  PACKAGES_DIR_NAME,
+  PACKAGES_DIR_PATH,
+  SCRIPTS_DIR_NAME,
+  SCRIPTS_DIR_PATH,
+  APPS_DIR_NAME,
+  APPS_DIR_PATH,
+  DEFAULT_SCOPE,
+} from "@/constants";
 import { preflightCheck } from "@/utils/preflight-check";
-import { DEFAULT_SCOPE } from "@/constants";
 
 intro("Code generation script initiated.");
 
@@ -123,10 +131,14 @@ switch (scopeOption) {
 const type = await select({
   message: "Choose a package type:",
   options: [
-    { label: "Library", hint: `packages/${name}`, value: "LIBRARY" },
-    { label: "Script", hint: `scripts/${name}`, value: "SCRIPT" },
-    { label: "Web app", hint: `apps/${name}`, value: "WEB" },
-    { label: "API server", hint: `apps/${name}`, value: "API" },
+    {
+      label: "Library",
+      hint: `${PACKAGES_DIR_NAME}/${name}`,
+      value: "LIBRARY",
+    },
+    { label: "Script", hint: `${SCRIPTS_DIR_NAME}/${name}`, value: "SCRIPT" },
+    { label: "Web app", hint: `${APPS_DIR_NAME}/${name}`, value: "WEB" },
+    { label: "API server", hint: `${APPS_DIR_NAME}/${name}`, value: "API" },
   ],
 });
 
@@ -135,22 +147,19 @@ if (isCancel(type)) {
   process.exit(0);
 }
 
-let packageDirectory: string;
+let directoryPath: string;
 switch (type) {
   case "LIBRARY": {
-    packageDirectory = "packages";
+    directoryPath = PACKAGES_DIR_PATH;
     break;
   }
   case "SCRIPT": {
-    packageDirectory = "scripts";
+    directoryPath = SCRIPTS_DIR_PATH;
     break;
   }
-  case "API": {
-    packageDirectory = "apps";
-    break;
-  }
+  case "API":
   case "WEB": {
-    packageDirectory = "apps";
+    directoryPath = APPS_DIR_PATH;
     break;
   }
 }
@@ -161,9 +170,9 @@ if (type === "LIBRARY") {
   const runtime = await select({
     message: "Choose the package's runtime",
     options: [
-      { label: "Bun", value: "BUN" },
-      { label: "Browser", value: "BROWSER" },
-      { label: "Both", value: "ISOMORPHIC" },
+      { label: "Bun", value: "bun" },
+      { label: "Browser", value: "browser" },
+      { label: "Both", value: "isomorphic" },
     ],
   });
 
@@ -176,5 +185,5 @@ if (type === "LIBRARY") {
 }
 
 outro(
-  `${scope ? `@${scope}/${name}` : `${name}`} will be created at ${`${packageDirectory}/${name}`}`
+  `${scope ? `@${scope}/${name}` : `${name}`} will be created at ${directoryPath}/${name}`
 );
