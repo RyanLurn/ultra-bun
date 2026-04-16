@@ -1,0 +1,38 @@
+function createPackageJson({
+  scope,
+  name,
+}: {
+  scope: string | null;
+  name: string;
+}) {
+  const packageJsonObject = {
+    name: `@${scope}/${name}`,
+    type: "module",
+    private: "true",
+    scripts: {
+      build: "tsdown",
+      try: "bun run src/try.ts",
+      "check-types": "tsc --noEmit",
+      lint: "eslint --cache",
+    },
+    exports: {
+      "./*": {
+        import: "./dist/*.mjs",
+        types: "./dist/*.d.mts",
+      },
+    },
+    dependencies: {
+      zod: "catalog:",
+    },
+    devDependencies: {
+      "@repo/eslint-config": "workspace:*",
+      "@repo/typescript-config": "workspace:*",
+      "@types/bun": "catalog:",
+      eslint: "catalog:",
+      tsdown: "catalog:",
+      typescript: "catalog:",
+    },
+  };
+
+  return JSON.stringify(packageJsonObject, null, 2);
+}
