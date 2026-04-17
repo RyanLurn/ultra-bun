@@ -108,6 +108,7 @@
       "name": "@repo/core",
       "devDependencies": {
         "@repo/eslint-config": "workspace:*",
+        "@repo/tsdown-config": "workspace:*",
         "@repo/typescript-config": "workspace:*",
         "@types/bun": "catalog:",
         "@types/node": "catalog:",
@@ -130,6 +131,7 @@
       },
       "devDependencies": {
         "@repo/eslint-config": "workspace:*",
+        "@repo/tsdown-config": "workspace:*",
         "@repo/typescript-config": "workspace:*",
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",

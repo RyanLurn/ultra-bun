@@ -1,9 +1,3 @@
-import { defineConfig } from "tsdown";
+import { internalPackageConfig } from "@repo/tsdown-config";
 
-export default defineConfig({
-  dts: {
-    sourcemap: true,
-  },
-  entry: ["src/**/*.ts", "!src/try.ts"],
-  unbundle: true,
-});
+export default internalPackageConfig;
