@@ -91,6 +91,16 @@
         "typescript-eslint": "^8.58.1",
       },
     },
+    "configs/tsdown": {
+      "name": "@repo/tsdown-config",
+      "devDependencies": {
+        "@repo/eslint-config": "workspace:*",
+        "@repo/typescript-config": "workspace:*",
+        "eslint": "catalog:",
+        "tsdown": "catalog:",
+        "typescript": "catalog:",
+      },
+    },
     "configs/typescript": {
       "name": "@repo/typescript-config",
     },
@@ -386,6 +396,8 @@
     "@repo/eslint-config": ["@repo/eslint-config@workspace:configs/eslint"],
 
     "@repo/home": ["@repo/home@workspace:apps/home"],
+
+    "@repo/tsdown-config": ["@repo/tsdown-config@workspace:configs/tsdown"],
 
     "@repo/typescript-config": ["@repo/typescript-config@workspace:configs/typescript"],
 
