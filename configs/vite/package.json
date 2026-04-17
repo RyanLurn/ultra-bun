@@ -14,14 +14,14 @@
     "@tanstack/react-start": "catalog:"
   },
   "devDependencies": {
-    "@babel/core": "catalog:",
+    "@babel/core": "^7.29.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@rolldown/plugin-babel": "catalog:",
-    "@tailwindcss/vite": "catalog:",
-    "@types/babel__core": "catalog:",
-    "@vitejs/plugin-react": "catalog:",
-    "babel-plugin-react-compiler": "catalog:",
+    "@rolldown/plugin-babel": "^0.2.3",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/babel__core": "^7.20.5",
+    "@vitejs/plugin-react": "^6.0.1",
+    "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:"
