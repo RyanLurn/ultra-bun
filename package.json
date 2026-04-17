@@ -10,8 +10,7 @@
     "lint": "turbo run lint",
     "format": "prettier . --write --cache",
     "format:check": "prettier . --check --cache",
-    "check": "turbo run check-types lint && bun run format:check",
-    "gen": "bun run \"scripts\\gen\\src\\index.ts\""
+    "check": "turbo run check-types lint && bun run format:check"
   },
   "workspaces": {
     "packages": [
