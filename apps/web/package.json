@@ -21,6 +21,7 @@
     "@babel/core": "catalog:",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@repo/vite-config": "workspace:*",
     "@rolldown/plugin-babel": "catalog:",
     "@tailwindcss/vite": "catalog:",
     "@tanstack/router-plugin": "catalog:",
