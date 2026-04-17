@@ -30,9 +30,6 @@
     },
     "packages/core": {
       "name": "@repo/core",
-      "dependencies": {
-        "zod": "catalog:",
-      },
       "devDependencies": {
         "@repo/eslint-config": "workspace:*",
         "@repo/typescript-config": "workspace:*",
@@ -40,6 +37,9 @@
         "eslint": "catalog:",
         "tsdown": "catalog:",
         "typescript": "catalog:",
+      },
+      "peerDependencies": {
+        "zod": "catalog:",
       },
     },
     "packages/ui": {
