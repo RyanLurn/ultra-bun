@@ -7,8 +7,8 @@ export const Route = createFileRoute("/")({ component: IndexPage });
 function IndexPage() {
   return (
     <div className="flex h-dvh flex-col items-center justify-center gap-y-2">
-      <h1 className="text-2xl font-bold">Home</h1>
-      <Button onClick={() => toast.success("Yippee!")}>Nhấn</Button>
+      <h1 className="text-2xl font-bold">Ultra Bun</h1>
+      <Button onClick={() => toast.success("Yippee!")}>Click me!</Button>
     </div>
   );
 }
