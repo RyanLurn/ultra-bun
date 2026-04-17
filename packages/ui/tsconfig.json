@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/src/runtime/browser.json",
+  "extends": "@repo/typescript-config/src/framework/react.json",
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"]
