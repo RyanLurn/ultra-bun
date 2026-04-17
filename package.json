@@ -10,7 +10,8 @@
     "lint": "turbo run lint",
     "format": "prettier . --write --cache",
     "format:check": "prettier . --check --cache",
-    "check": "turbo run check-types lint && bun run format:check"
+    "check": "turbo run check-types lint && bun run format:check",
+    "ui:add": "bun --elide-lines 0 --filter @repo/ui shadcn:add"
   },
   "workspaces": {
     "packages": [
