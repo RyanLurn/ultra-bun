@@ -24,7 +24,7 @@ export const Route = createRootRoute({
         name: "viewport",
       },
       {
-        title: "Ultra Bun Web App",
+        title: "Ultra Bun Website",
       },
     ],
     links: [
