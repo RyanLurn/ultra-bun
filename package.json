@@ -3,6 +3,8 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "dev:home": "bun --elide-lines 0 --filter @repo/home dev",
+    "dev:web": "bun --elide-lines 0 --filter @repo/web dev",
     "build": "turbo run build",
     "check-types": "turbo run check-types",
     "lint": "turbo run lint",
