@@ -25,6 +25,7 @@
     "@eslint/js": "^10.0.1",
     "@tanstack/eslint-plugin-router": "^1.161.6",
     "@types/bun": "catalog:",
+    "@types/node": "catalog:",
     "@repo/typescript-config": "workspace:*",
     "eslint": "catalog:",
     "eslint-config-prettier": "^10.1.8",
