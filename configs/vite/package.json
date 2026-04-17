@@ -1,0 +1,27 @@
+{
+  "name": "@repo/vite-config",
+  "type": "module",
+  "private": "true",
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "lint": "eslint --cache"
+  },
+  "exports": {
+    "import": "./src/index.js",
+    "types": "./src/index.d.ts"
+  },
+  "devDependencies": {
+    "@babel/core": "catalog:",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@rolldown/plugin-babel": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "@tanstack/router-plugin": "catalog:",
+    "@types/babel__core": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "babel-plugin-react-compiler": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}

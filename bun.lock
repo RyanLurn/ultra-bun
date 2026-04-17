@@ -104,6 +104,23 @@
     "configs/typescript": {
       "name": "@repo/typescript-config",
     },
+    "configs/vite": {
+      "name": "@repo/vite-config",
+      "devDependencies": {
+        "@babel/core": "catalog:",
+        "@repo/eslint-config": "workspace:*",
+        "@repo/typescript-config": "workspace:*",
+        "@rolldown/plugin-babel": "catalog:",
+        "@tailwindcss/vite": "catalog:",
+        "@tanstack/router-plugin": "catalog:",
+        "@types/babel__core": "catalog:",
+        "@vitejs/plugin-react": "catalog:",
+        "babel-plugin-react-compiler": "catalog:",
+        "eslint": "catalog:",
+        "typescript": "catalog:",
+        "vite": "catalog:",
+      },
+    },
     "packages/core": {
       "name": "@repo/core",
       "devDependencies": {
@@ -404,6 +421,8 @@
     "@repo/typescript-config": ["@repo/typescript-config@workspace:configs/typescript"],
 
     "@repo/ui": ["@repo/ui@workspace:packages/ui"],
+
+    "@repo/vite-config": ["@repo/vite-config@workspace:configs/vite"],
 
     "@repo/web": ["@repo/web@workspace:apps/web"],
 
