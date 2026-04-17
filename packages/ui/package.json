@@ -8,6 +8,13 @@
     "lint": "eslint --cache",
     "shadcn:add": "bunx shadcn add"
   },
+  "exports": {
+    "./*": {
+      "import": "./dist/*.mjs",
+      "types": "./dist/*.d.mts"
+    },
+    "./style.css": "./src/globals.css"
+  },
   "dependencies": {
     "@base-ui/react": "^1.4.0",
     "@repo/core": "workspace:*",
