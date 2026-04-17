@@ -1,6 +1,6 @@
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
-import { WEB_APP_PORT } from "@repo/core/constants/ports";
+import { HOME_APP_PORT } from "@repo/core/constants/ports";
 import tailwindcss from "@tailwindcss/vite";
 import babel from "@rolldown/plugin-babel";
 import { defineConfig } from "vite";
@@ -25,6 +25,6 @@ export default defineConfig({
     },
   },
   server: {
-    port: WEB_APP_PORT,
+    port: HOME_APP_PORT,
   },
 });
