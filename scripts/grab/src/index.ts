@@ -43,22 +43,30 @@ async function main() {
       ({ path }) => path !== ROOT_DIR
     );
 
-    const ignoredWorkspacePaths = await multiselect({
+    const ignoredWorkspaces = await multiselect({
       message: "Which ones would you like to ignore?",
       options: nonRootWorkspaces.map(({ name, path }) => ({
-        value: path,
+        value: { name, path },
         label: name,
         hint: path,
       })),
+      required: false,
     });
 
-    if (isCancel(ignoredWorkspacePaths)) {
+    if (isCancel(ignoredWorkspaces)) {
       cancel("Operation cancelled.");
       process.exit(0);
     }
 
-    for (const ignoredPath of ignoredWorkspacePaths) {
-      ignoredDirs.push(ignoredPath);
+    if (ignoredWorkspaces.length > 0) {
+      for (const ignoredWorkspace of ignoredWorkspaces) {
+        ignoredDirs.push(ignoredWorkspace.path);
+      }
+
+      const ignoredWorkspaceNames = ignoredWorkspaces.map(({ name }) => name);
+      log.info(`${ignoredWorkspaceNames.join(", ")} will be skipped.`);
+    } else {
+      log.info("No workspace will be skipped.");
     }
   }
 
