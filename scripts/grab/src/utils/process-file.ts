@@ -10,18 +10,18 @@ const migrationMetadataGlob = new Glob("**/migrations/meta/*.json");
 
 export async function processFile({
   path,
-  ignorePatterns = [],
+  ignoredDirs = [],
 }: {
   path: string;
-  ignorePatterns?: Glob[];
+  ignoredDirs?: string[];
 }) {
   const parsedPath = parse(path);
   const ext = parsedPath.ext;
 
   let isIgnored = false;
 
-  for (const pattern of ignorePatterns) {
-    if (pattern.match(path)) {
+  for (const ignoredDir of ignoredDirs) {
+    if (path.startsWith(ignoredDir)) {
       isIgnored = true;
       break;
     }
@@ -39,7 +39,7 @@ export async function processFile({
 
   let content: string;
   if (isIgnored) {
-    content = "[SKIPPED]";
+    content = `[SKIPPED]`;
   } else {
     content = await Bun.file(path).text();
   }
