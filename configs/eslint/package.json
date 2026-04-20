@@ -29,10 +29,10 @@
     "@repo/typescript-config": "workspace:*",
     "eslint": "catalog:",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-perfectionist": "^5.8.0",
-    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-perfectionist": "^5.9.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.5.0",
     "typescript": "catalog:",
-    "typescript-eslint": "^8.58.1"
+    "typescript-eslint": "^8.58.2"
   }
 }
