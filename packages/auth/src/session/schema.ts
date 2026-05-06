@@ -8,3 +8,5 @@ export const SessionSchema = z.object({
   userId: z.string(),
   userRole: z.enum(USER_ROLES),
 });
+
+export type Session = z.infer<typeof SessionSchema>;
