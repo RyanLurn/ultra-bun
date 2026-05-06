@@ -1,0 +1,41 @@
+{
+  "name": "@repo/db",
+  "type": "module",
+  "private": "true",
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "lint": "eslint --cache",
+    "generate": "bun --env-file=.env.local run drizzle-kit generate",
+    "migrate": "bun --env-file=.env.local run drizzle-kit migrate"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "./*": {
+      "import": "./dist/*.mjs",
+      "types": "./dist/*.d.mts",
+      "default": "./dist/*.mjs"
+    }
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
+    "@repo/core": "workspace:*",
+    "@t3-oss/env-core": "catalog:",
+    "drizzle-orm": "^0.45.2",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsdown-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/bun": "catalog:",
+    "@types/node": "catalog:",
+    "drizzle-kit": "^0.31.10",
+    "eslint": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  }
+}
