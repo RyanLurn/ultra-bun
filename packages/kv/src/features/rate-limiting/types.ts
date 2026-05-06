@@ -1,0 +1,60 @@
+// Copied from https://github.com/upstash/ratelimit-js/blob/main/src/types.ts
+
+export type RatelimitResponseType = "cacheBlock" | "denyList" | "timeout";
+
+export type RatelimitResponse = {
+  /**
+   * Whether the request may pass(true) or exceeded the limit(false)
+   */
+  success: boolean;
+  /**
+   * Maximum number of requests allowed within a window.
+   */
+  limit: number;
+  /**
+   * How many requests the user has left within the current window.
+   */
+  remaining: number;
+  /**
+   * Unix timestamp in milliseconds when the limits are reset.
+   */
+  reset: number;
+
+  /**
+   * For the MultiRegion setup we do some synchronizing in the background, after returning the current limit.
+   * Or when analytics is enabled, we send the analytics asynchronously after returning the limit.
+   * In most case you can simply ignore this.
+   *
+   * On Vercel Edge or Cloudflare workers, you need to explicitly handle the pending Promise like this:
+   *
+   * ```ts
+   * const { pending } = await ratelimit.limit("id")
+   * context.waitUntil(pending)
+   * ```
+   *
+   * See `waitUntil` documentation in
+   * [Cloudflare](https://developers.cloudflare.com/workers/runtime-apis/handlers/fetch/#contextwaituntil)
+   * and [Vercel](https://vercel.com/docs/functions/edge-middleware/middleware-api#waituntil)
+   * for more details.
+   * ```
+   */
+  pending: Promise<unknown>;
+
+  /**
+   * Reason behind the result in `success` field.
+   * - Is set to "timeout" when request times out
+   * - Is set to "cacheBlock" when an identifier is blocked through cache without calling redis because it was
+   *    rate limited previously.
+   * - Is set to "denyList" when identifier or one of ip/user-agent/country parameters is in deny list. To enable
+   *    deny list, see `enableProtection` parameter. To edit the deny list, see the Upstash Ratelimit Dashboard
+   *    at https://console.upstash.com/ratelimit.
+   * - Is set to undefined if rate limit check had to use Redis. This happens in cases when `success` field in
+   *    the response is true. It can also happen the first time sucecss is false.
+   */
+  reason?: RatelimitResponseType;
+
+  /**
+   * The value which was in the deny list if reason: "denyList"
+   */
+  deniedValue?: string;
+};
