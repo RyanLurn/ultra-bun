@@ -18,15 +18,13 @@ export class RateLimitedError extends BaseError<
   constructor({
     message,
     context,
-    cause,
   }: {
     message?: string;
     context: RateLimitedContext;
-    cause: Error;
   }) {
     super({
-      name: "UnexpectedError",
-      message: message ?? cause.message,
+      name: "RateLimitedError",
+      message: message ?? "Rate limit exceeded.",
       code: "RATE_LIMITED_ERROR",
       context,
       cause: null,
